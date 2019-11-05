@@ -251,7 +251,7 @@ class NonBreakableSpaceChecker(Checker):
     def __add_message_space_before(self, item, prefix, match, suffix):
         item.add_error(
             self.name,
-            f'There should be a non-breakable space before "{match[1:]}": between ###{prefix}### and ###{match[1:]}{suffix}###',
+            f'There should be a non-breakable space before "{match[1:]}": between ###{prefix}{match[0]}### and ###{match[1:]}{suffix}###',
         )
 
 
