@@ -2,6 +2,8 @@
 
 Linter for gettext files (*.po)
 
+Created to help the translation of official Python docs in French: https://github.com/python/python-docs-fr
+
 **WORK IN PROGRESS**
 
 ## License
