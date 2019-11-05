@@ -292,7 +292,8 @@ class GrammalecteChecker(Checker):
                     start = max(0, int(error["nStart"]) - 40)
                     end = max(0, int(error["nEnd"]) + 10)
                     item.add_warning(
-                        self.name + " " + error["sRuleId"],  # TODO
+                        self.name,
+                        # self.name + " " + error["sRuleId"],  # TODO
                         error["sMessage"]
                         + " => ###"
                         + item.msgstr_rst2txt[start:end]
