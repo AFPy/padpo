@@ -32,6 +32,8 @@ or
 python padpo.py a_directory_containing_po_files
 ```
 
+![Screenshot](screenshot.png)
+
 ## Installation
 
 1. Create a virtual environment
