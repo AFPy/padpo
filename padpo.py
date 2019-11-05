@@ -299,6 +299,7 @@ class GrammalecteChecker(Checker):
                         + item.msgstr_rst2txt[start:end]
                         + "###",
                     )
+        Path(name).unlink()
 
     def check_item(self, item: PoItem):
         pass
