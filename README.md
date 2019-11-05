@@ -10,6 +10,8 @@ Created to help the translation of official Python docs in French: https://githu
 
 BSD 3-clause
 
+Pull request are welcome.
+
 ## Trademark
 
 * Code in one file (TM) :+1:
