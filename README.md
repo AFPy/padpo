@@ -39,7 +39,7 @@ python padpo.py a_directory_containing_po_files
 
 ## Installation
 
-1. Create a virtual environment
+1. Create a virtual environment with Python 3.7 and above
    ```bash
    python3.7 -m venv venv
    ```
