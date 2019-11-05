@@ -18,16 +18,16 @@ BSD 3-clause
 
 ## Usage
 
-Using the activated virtual environment created during the installation:
+Using the *activated virtual environment* created during the installation:
 
 ```bash
-python3.7 padpo.py a_file.po
+python padpo.py a_file.po
 ```
 
 or
 
 ```bash
-python3.7 padpo.py a_directory_containing_po_files
+python padpo.py a_directory_containing_po_files
 ```
 
 ## Installation
