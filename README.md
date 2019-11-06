@@ -53,6 +53,7 @@ python padpo.py a_directory_containing_po_files
    ```
 4. Get grammalecte
    ```bash
+   pip install wheel
    wget https://grammalecte.net/grammalecte/zip/Grammalecte-fr-v1.5.0.zip
    unzip  Grammalecte-fr-v1.5.0.zip -d Grammalecte-fr-v1.5.0
    cd Grammalecte-fr-v1.5.0
