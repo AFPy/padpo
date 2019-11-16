@@ -1,1 +1,1 @@
-simplelogging
+simplelogging==0.10.0
