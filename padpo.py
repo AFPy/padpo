@@ -7,6 +7,7 @@ import tempfile
 from abc import ABC, abstractmethod
 from pathlib import Path
 
+import requests
 import simplelogging
 
 # log = simplelogging.get_logger(console_level=simplelogging.DEBUG)
@@ -351,7 +352,22 @@ def check_path(path):
 
 
 def pull_request_files(pull_request):
-    return "functions.po"
+    pull_request = pull_request.replace("/pull/", "/pulls/")
+    request = requests.get(
+        f"https://api.github.com/repos/{pull_request}/files"
+    )
+    request.raise_for_status()
+    # TODO remove directory at end of execution
+    temp_dir = tempfile.mkdtemp(prefix="padpo_")
+    for file in request.json():
+        filename = file["filename"]
+        temp_file = Path(temp_dir) / filename
+        content_request = requests.get(file["raw_url"])
+        content_request.raise_for_status()
+        temp_file_dir = temp_file.parent
+        temp_file_dir.mkdir(parents=True, exist_ok=True)
+        temp_file.write_bytes(content_request.content)
+    return temp_dir
 
 
 if __name__ == "__main__":

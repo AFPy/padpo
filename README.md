@@ -25,14 +25,28 @@ Pull request are welcome.
 
 Using the *activated virtual environment* created during the installation:
 
+For a local input file:
+
 ```bash
-python padpo.py a_file.po
+python padpo.py --input-path a_file.po
 ```
 
-or
+or for a local input directory:
 
 ```bash
-python padpo.py a_directory_containing_po_files
+python padpo.py --input-path a_directory_containing_po_files
+```
+
+or for a pull request in python-docs-fr repository (here pull request #978)
+
+```bash
+python padpo.py --python-docs-fr 978
+```
+
+or for a pull request in a GitHub repository (here python/python-docs-fr/pull/978)
+
+```bash
+python padpo.py --github python/python-docs-fr/pull/978
 ```
 
 ![Screenshot](screenshot.png)
@@ -40,18 +54,25 @@ python padpo.py a_directory_containing_po_files
 ## Installation
 
 1. Create a virtual environment with Python 3.7 and above
+
    ```bash
    python3.7 -m venv venv
    ```
+
 2. Activate the virtual environment
+
    ```bash
    source venv/bin/activate
    ```
+
 3. Install dependencies
+
    ```bash
    pip install -r requirements.txt
    ```
+
 4. Get grammalecte
+
    ```bash
    pip install wheel
    wget https://grammalecte.net/grammalecte/zip/Grammalecte-fr-v1.5.0.zip
