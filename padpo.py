@@ -350,14 +350,37 @@ def check_path(path):
         return check_file(path)
 
 
+def pull_request_files(pull_request):
+    return "functions.po"
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Linter for *.po files.")
     parser.add_argument("-v", "--verbose", action="count", default=0)
-    parser.add_argument(
-        "path",
+    files = parser.add_mutually_exclusive_group()
+    files.add_argument(
+        "-i",
+        "--input-path",
         metavar="PATH",
         type=str,
         help="path of the file or directory to check",
+        default="",
+    )
+    files.add_argument(
+        "-g",
+        "--github",
+        metavar="python/python-docs-fr/pull/978",
+        type=str,
+        help="path of pull request in GitHub to check",
+        default="",
+    )
+    files.add_argument(
+        "-p",
+        "--python-docs-fr",
+        metavar="978",
+        type=int,
+        help="ID of pull request in python-docs-fr repository",
+        default=0,
     )
     args = parser.parse_args()
     if args.verbose < 1:
@@ -367,6 +390,16 @@ if __name__ == "__main__":
     else:
         log.full_logging()
 
-    any_error = check_path(args.path)
+    if args.input_path:
+        path = args.input_path
+    else:
+        pull_request = ""
+        if args.github:
+            pull_request = args.github
+        if args.python_docs_fr:
+            pull_request = f"python/python-docs-fr/pull/{args.python_docs_fr}"
+        path = pull_request_files(pull_request)
+
+    any_error = check_path(path)
     if any_error:
         sys.exit(1)
