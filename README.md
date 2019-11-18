@@ -28,25 +28,25 @@ Using the *activated virtual environment* created during the installation:
 For a local input file:
 
 ```bash
-python -m padpo --input-path a_file.po
+padpo --input-path a_file.po
 ```
 
 or for a local input directory:
 
 ```bash
-python -m padpo --input-path a_directory_containing_po_files
+padpo --input-path a_directory_containing_po_files
 ```
 
 or for a pull request in python-docs-fr repository (here pull request #978)
 
 ```bash
-python -m padpo --python-docs-fr 978
+padpo --python-docs-fr 978
 ```
 
 or for a pull request in a GitHub repository (here python/python-docs-fr/pull/978)
 
 ```bash
-python -m padpo --github python/python-docs-fr/pull/978
+padpo --github python/python-docs-fr/pull/978
 ```
 
 ![Screenshot](screenshot.png)

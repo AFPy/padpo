@@ -12,8 +12,7 @@ from zipfile import ZipFile
 import requests
 import simplelogging
 
-# log = simplelogging.get_logger(console_level=simplelogging.DEBUG)
-log = simplelogging.get_logger()
+log = None
 
 
 class PoItem:
@@ -473,6 +472,9 @@ def pull_request_files(pull_request):
 
 
 def main():
+    global log
+    log = simplelogging.get_logger("__main__")
+
     parser = argparse.ArgumentParser(description="Linter for *.po files.")
     parser.add_argument("-v", "--verbose", action="count", default=0)
     files = parser.add_mutually_exclusive_group()
