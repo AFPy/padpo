@@ -1,11 +1,11 @@
 #!/bin/bash
 
+git pull
 cat padpo/__init__.py | grep version
 cat setup.py | grep version
 echo "ready ?"
 read BOOL
 
-git pull
 source venv/bin/activate
 
 # clean
