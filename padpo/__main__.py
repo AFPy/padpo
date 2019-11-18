@@ -1,3 +1,6 @@
-#!/usr/bin/env python3
+import simplelogging
 
-__import__("padpo.padpo").padpo.main()
+import padpo.padpo
+
+padpo.padpo.log = simplelogging.get_logger()
+padpo.padpo.main()
