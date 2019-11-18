@@ -53,6 +53,14 @@ python padpo.py --github python/python-docs-fr/pull/978
 
 ## Installation
 
+### Automatic installation
+
+```
+pip install padpo
+```
+
+### Manual installation
+
 1. Create a virtual environment with Python 3.7 and above
 
    ```bash
@@ -71,7 +79,7 @@ python padpo.py --github python/python-docs-fr/pull/978
    pip install -r requirements.txt
    ```
 
-4. Get grammalecte
+4. Get grammalecte (normally this is done automatically at first usage)
 
    ```bash
    pip install wheel

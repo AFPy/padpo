@@ -7,6 +7,7 @@ import tempfile
 from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import List
+from zipfile import ZipFile
 
 import requests
 import simplelogging
@@ -70,7 +71,7 @@ class PoItem:
     def rst2txt(text):
         text = re.sub(r"::", r":", text)
         text = re.sub(r"``(.*?)``", r"« \1 »", text)
-        text = re.sub(r'\"(.*?)\"', r"« \1 »", text)
+        text = re.sub(r"\"(.*?)\"", r"« \1 »", text)
         text = re.sub(r":pep:`(.*?)`", r"PEP \1", text)
         for term in (
             "abbr",
@@ -309,19 +310,36 @@ class GrammalecteChecker(Checker):
             text = pofile.rst2txt()
             text = re.sub(r"«\s(.*?)\s»", replace_quotes, text)
             f.write(text)
-        result = subprocess.run(
-            [
-                "grammalecte-cli.py",
-                "-f",
-                name,
-                "-off",
-                "apos",
-                "--json",
-                "--only_when_errors",
-            ],
-            capture_output=True,
-            text=True,
-        )
+        try:
+            result = subprocess.run(
+                [
+                    "grammalecte-cli.py",
+                    "-f",
+                    name,
+                    "-off",
+                    "apos",
+                    "--json",
+                    "--only_when_errors",
+                ],
+                capture_output=True,
+                text=True,
+            )
+        except FileNotFoundError as e:
+            if e.filename == "grammalecte-cli.py":
+                install_grammalecte()
+                result = subprocess.run(
+                    [
+                        "grammalecte-cli.py",
+                        "-f",
+                        name,
+                        "-off",
+                        "apos",
+                        "--json",
+                        "--only_when_errors",
+                    ],
+                    capture_output=True,
+                    text=True,
+                )
         if result.stdout:
             warnings = json.loads(result.stdout)
             for warning in warnings["data"]:
@@ -354,6 +372,25 @@ class GrammalecteChecker(Checker):
         if msg == "nbsp_avant_double_ponctuation":
             return True
         return False
+
+
+def install_grammalecte():
+    log.warning("Missing grammalecte, trying to install it")
+    # with tempfile.TemporaryDirectory(prefix="padpo_") as tmpdirname:
+    tmpdirname = "/tmp/_padpo_gramma"
+    tmpdirname = Path(tmpdirname)
+    tmpdirname.mkdir(exist_ok=True)
+    r = requests.get(
+        "https://grammalecte.net/grammalecte/zip/Grammalecte-fr-v1.5.0.zip"
+    )
+    r.raise_for_status()
+    zip_file = tmpdirname / "Grammalecte-fr-v1.5.0.zip"
+    zip_file.write_bytes(r.content)
+    with ZipFile(zip_file, "r") as zip_obj:
+        zip_obj.extractall(tmpdirname / "Grammalecte-fr-v1.5.0")
+    subprocess.run(
+        ["pip", "install", str(tmpdirname / "Grammalecte-fr-v1.5.0")]
+    )
 
 
 checkers = [
