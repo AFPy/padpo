@@ -74,6 +74,7 @@ class PoItem:
         for term in (
             "abbr",
             "attr",
+            "c:type",
             "class",
             "const",
             "data",
