@@ -68,6 +68,7 @@ class PoItem:
         text = re.sub(r"``(.*?)``", r"« \1 »", text)
         text = re.sub(r":pep:`(.*?)`", r"PEP \1", text)
         for term in (
+            "abbr",
             "attr",
             "class",
             "const",
