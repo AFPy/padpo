@@ -6,6 +6,7 @@ import sys
 import tempfile
 from abc import ABC, abstractmethod
 from pathlib import Path
+from typing import List
 
 import requests
 import simplelogging
@@ -17,14 +18,17 @@ log = simplelogging.get_logger()
 class PoItem:
     def __init__(self, path, lineno):
         self.path = path[3:]
-        self.lineno = lineno
+        self.lineno_start = lineno
+        self.lineno_end = lineno
         self.parsing_msgid = None
         self.msgid = []
         self.msgstr = []
         self.fuzzy = False
         self.warnings = []
+        self.inside_pull_request = False
 
     def append_line(self, line):
+        self.lineno_end += 1
         if line.startswith("msgid"):
             self.parsing_msgid = True
             self.msgid.append(line[7:-2])
@@ -100,7 +104,7 @@ class PoItem:
 
 class PoFile:
     def __init__(self, path=None):
-        self.content = []
+        self.content: List[PoItem] = []
         self.path = path
         if path:
             self.parse_file(path)
@@ -127,10 +131,13 @@ class PoFile:
     def rst2txt(self):
         return "\n\n".join(item.msgstr_rst2txt for item in self.content)
 
-    def display_warnings(self):
+    def display_warnings(self, pull_request_info=None):
+        self.tag_in_pull_request(pull_request_info)
         any_error = False
         for item in self.content:
-            prefix = f"{self.path}:{item.lineno:-4} %s"
+            if not item.inside_pull_request:
+                continue
+            prefix = f"{self.path}:{item.lineno_start:-4} %s"
             log.debug(prefix, "")
             for message in item.warnings:
                 if isinstance(message, Error):
@@ -139,6 +146,35 @@ class PoFile:
                 elif isinstance(message, Warning):
                     log.warning(prefix, message)
         return any_error
+
+    def tag_in_pull_request(self, pull_request_info):
+        if not pull_request_info:
+            for item in self.content:
+                item.inside_pull_request = True
+        else:
+            diff = pull_request_info.diff(self.path)
+            for item in self.content:
+                item.inside_pull_request = False
+            for lineno_diff in self.lines_in_diff(diff):
+                for item in self.content:
+                    if item.lineno_start <= lineno_diff <= item.lineno_end:
+                        item.inside_pull_request = True
+
+    @staticmethod
+    def lines_in_diff(diff):
+        for line in diff.splitlines():
+            if line.startswith("@@"):
+                m = re.search(r"@@\s*\-\d+,\d+\s+\+(\d+),(\d+)\s+@@", line)
+                if m:
+                    line_start = int(m.group(1))
+                    nb_lines = int(m.group(2))
+                    # github add 3 extra lines around diff info
+                    extra_info_lines = 3
+                    for lineno in range(
+                        line_start + extra_info_lines,
+                        line_start + nb_lines - extra_info_lines,
+                    ):
+                        yield lineno
 
 
 class Message:
@@ -327,29 +363,52 @@ checkers = [
 ]
 
 
-def check_file(path):
+def check_file(path, pull_request_info=None):
     file = PoFile(path)
 
     for checker in checkers:
         checker.check_file(file)
 
-    return file.display_warnings()
+    return file.display_warnings(pull_request_info)
 
 
-def check_directory(path):
+def check_directory(path, pull_request_info=None):
     path = Path(path)
     any_error = False
     for file in path.rglob("*.po"):
-        any_error = check_file(file) or any_error
+        any_error = check_file(file, pull_request_info) or any_error
     return any_error
 
 
-def check_path(path):
+def check_path(path, pull_request_info=None):
     path = Path(path)
     if path.is_dir():
-        return check_directory(path)
+        return check_directory(path, pull_request_info)
     else:
-        return check_file(path)
+        return check_file(path, pull_request_info)
+
+
+class PullRequestInfo:
+    def __init__(self):
+        self._data = {}
+
+    def add_file(self, filename, temp_path, diff):
+        self._data[str(temp_path)] = (temp_path, diff, filename)
+
+    def diff(self, path):
+        if str(path) in self._data:
+            return self._data[str(path)][1]
+        return ""
+
+    def temp_path(self, path):
+        if str(path) in self._data:
+            return self._data[str(path)][0]
+        return ""
+
+    def filename(self, path):
+        if str(path) in self._data:
+            return self._data[str(path)][2]
+        return ""
 
 
 def pull_request_files(pull_request):
@@ -360,6 +419,7 @@ def pull_request_files(pull_request):
     request.raise_for_status()
     # TODO remove directory at end of execution
     temp_dir = tempfile.mkdtemp(prefix="padpo_")
+    pr = PullRequestInfo()
     for file in request.json():
         filename = file["filename"]
         temp_file = Path(temp_dir) / filename
@@ -368,7 +428,8 @@ def pull_request_files(pull_request):
         temp_file_dir = temp_file.parent
         temp_file_dir.mkdir(parents=True, exist_ok=True)
         temp_file.write_bytes(content_request.content)
-    return temp_dir
+        pr.add_file(filename, temp_file, file["patch"])
+    return temp_dir, pr
 
 
 if __name__ == "__main__":
@@ -409,14 +470,15 @@ if __name__ == "__main__":
 
     if args.input_path:
         path = args.input_path
+        pull_request_info = None
     else:
         pull_request = ""
         if args.github:
             pull_request = args.github
         if args.python_docs_fr:
             pull_request = f"python/python-docs-fr/pull/{args.python_docs_fr}"
-        path = pull_request_files(pull_request)
+        path, pull_request_info = pull_request_files(pull_request)
 
-    any_error = check_path(path)
+    any_error = check_path(path, pull_request_info=pull_request_info)
     if any_error:
         sys.exit(1)
