@@ -80,3 +80,15 @@ python padpo.py --github python/python-docs-fr/pull/978
    cd Grammalecte-fr-v1.5.0
    pip install .
    ```
+
+## Update on PyPI
+
+* git pull
+* activate venv
+* change version in `setup.py` and in `padpo.__init__`
+* clean
+  * `rm -rf build/ dist/ eggs/`
+  * TODO make a script for this (and better clean)
+* `python setup.py sdist`
+* `python setup.py bdist_wheel`
+* `twine upload dist/*`
