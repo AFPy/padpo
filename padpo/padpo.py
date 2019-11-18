@@ -81,6 +81,7 @@ class PoItem:
             "exc",
             "file",
             "func",
+            "kbd",
             "keyword",
             "meth",
             "mod",
