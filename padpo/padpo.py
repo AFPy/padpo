@@ -72,27 +72,7 @@ class PoItem:
         text = re.sub(r"``(.*?)``", r"« \1 »", text)
         text = re.sub(r"\"(.*?)\"", r"« \1 »", text)
         text = re.sub(r":pep:`(.*?)`", r"PEP \1", text)
-        for term in (
-            "abbr",
-            "attr",
-            "c:func",
-            "c:type",
-            "class",
-            "const",
-            "data",
-            "dfn",
-            "exc",
-            "file",
-            "func",
-            "kbd",
-            "keyword",
-            "meth",
-            "mod",
-            "ref",
-            "source",
-            "term",
-        ):
-            text = re.sub(rf":{term}:`(.*?)`", r"« \1 »", text)
+        text = re.sub(r":[a-z:]+:`(.+?)`", r"« \1 »", text)
         text = re.sub(r"\*\*(.*?)\*\*", r"« \1 »", text)
         text = re.sub(
             r"\*(.*?)\*", r"« \1 »", text
