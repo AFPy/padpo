@@ -458,7 +458,7 @@ def main():
 
     parser = argparse.ArgumentParser(description="Linter for *.po files.")
     parser.add_argument("-v", "--verbose", action="count", default=0)
-    files = parser.add_mutually_exclusive_group()
+    files = parser.add_mutually_exclusive_group(required=True)
     files.add_argument(
         "-i",
         "--input-path",
