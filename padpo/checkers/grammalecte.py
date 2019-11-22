@@ -26,45 +26,39 @@ class GrammalecteChecker(Checker):
         super().__init__()
         self.dir = None
 
+    @staticmethod
+    def run_grammalecte(filename: str) -> subprocess.CompletedProcess:
+        return subprocess.run(
+            [
+                "grammalecte-cli.py",
+                "-f",
+                filename,
+                "-off",
+                "apos",
+                "--json",
+                "--only_when_errors",
+            ],
+            capture_output=True,
+            text=True,
+        )
+
     def check_file(self, pofile: PoFile):
         """Check a `*.po` file."""
         if not isinstance(pofile, PoFile):
             log.error("%s is not an instance of PoFile", str(pofile))
-        fd, name = tempfile.mkstemp(suffix=".txt", prefix="padpo_", text=True)
-        with open(name, "w", encoding="utf8") as f:
+        _, filename = tempfile.mkstemp(
+            suffix=".txt", prefix="padpo_", text=True
+        )
+        with open(filename, "w", encoding="utf8") as f:
             text = pofile.rst2txt()
             text = re.sub(r"«\s(.*?)\s»", replace_quotes, text)
             f.write(text)
         try:
-            result = subprocess.run(
-                [
-                    "grammalecte-cli.py",
-                    "-f",
-                    name,
-                    "-off",
-                    "apos",
-                    "--json",
-                    "--only_when_errors",
-                ],
-                capture_output=True,
-                text=True,
-            )
+            result = self.run_grammalecte(filename)
         except FileNotFoundError as e:
             if e.filename == "grammalecte-cli.py":
                 install_grammalecte()
-                result = subprocess.run(
-                    [
-                        "grammalecte-cli.py",
-                        "-f",
-                        name,
-                        "-off",
-                        "apos",
-                        "--json",
-                        "--only_when_errors",
-                    ],
-                    capture_output=True,
-                    text=True,
-                )
+                result = self.run_grammalecte(filename)
         if result.stdout:
             warnings = json.loads(result.stdout)
             for warning in warnings["data"]:
@@ -83,7 +77,7 @@ class GrammalecteChecker(Checker):
                         + item.msgstr_rst2txt[start:end]
                         + "###",
                     )
-        Path(name).unlink()
+        Path(filename).unlink()
 
     def check_item(self, item: PoItem):
         """Check an item in a `*.po` file (does nothing)."""
