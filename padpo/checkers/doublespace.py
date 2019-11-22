@@ -9,9 +9,7 @@ from padpo.pofile import PoItem
 class DoubleSpaceChecker(Checker):
     """Checker for double spaces."""
 
-    def __init__(self):
-        """Initialiser."""
-        super().__init__(name="Double space")
+    name = "Double space"
 
     def check_item(self, item: PoItem):
         """Check an item in a `*.po` file."""

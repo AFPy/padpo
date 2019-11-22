@@ -12,9 +12,7 @@ log = simplelogging.get_logger()
 class Checker(ABC):
     """Base class for checkers."""
 
-    def __init__(self, name):
-        """Initializer, name is displayed in messages."""
-        self.name = name
+    name = "UnknownChecker"  # name displayed in error messages
 
     def check_file(self, pofile: PoFile):
         """Check a `*.po` file."""

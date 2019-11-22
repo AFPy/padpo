@@ -9,9 +9,7 @@ MAX_LINE_LENGTH = 79
 class LineLengthChecker(Checker):
     """Checker for line length."""
 
-    def __init__(self):
-        """Initialiser."""
-        super().__init__(name="Line length")
+    name = "Line length"
 
     def check_item(self, item: PoItem):
         """Check an item in a `*.po` file."""

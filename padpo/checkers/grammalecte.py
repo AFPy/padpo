@@ -19,9 +19,11 @@ log = simplelogging.get_logger()
 class GrammalecteChecker(Checker):
     """Checker for grammar errors."""
 
+    name = "Grammalecte"
+
     def __init__(self):
         """Initialiser."""
-        super().__init__(name="Grammalecte")
+        super().__init__()
         self.dir = None
 
     def check_file(self, pofile: PoFile):

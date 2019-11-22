@@ -8,9 +8,7 @@ from padpo.pofile import PoItem
 class EmptyChecker(Checker):
     """Checker for missing translations."""
 
-    def __init__(self):
-        """Initialiser."""
-        super().__init__(name="Empty")
+    name = "Empty"
 
     def check_item(self, item: PoItem):
         """Check an item in a `*.po` file."""

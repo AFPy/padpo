@@ -9,9 +9,7 @@ from padpo.pofile import PoItem
 class NonBreakableSpaceChecker(Checker):
     """Checker for missing non breakable spaces."""
 
-    def __init__(self):
-        """Initialiser."""
-        super().__init__(name="NBSP")
+    name = "NBSP"
 
     def check_item(self, item: PoItem):
         """Check an item in a `*.po` file."""
