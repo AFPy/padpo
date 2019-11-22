@@ -8,6 +8,7 @@ import simplelogging
 
 from padpo.pofile import PoFile
 from padpo.checkers import checkers
+from padpo.github import pull_request_files
 
 
 log = None
@@ -36,50 +37,6 @@ def check_path(path, pull_request_info=None):
         return check_directory(path, pull_request_info)
     else:
         return check_file(path, pull_request_info)
-
-
-class PullRequestInfo:
-    def __init__(self):
-        self._data = {}
-
-    def add_file(self, filename, temp_path, diff):
-        self._data[str(temp_path)] = (temp_path, diff, filename)
-
-    def diff(self, path):
-        if str(path) in self._data:
-            return self._data[str(path)][1]
-        return ""
-
-    def temp_path(self, path):
-        if str(path) in self._data:
-            return self._data[str(path)][0]
-        return ""
-
-    def filename(self, path):
-        if str(path) in self._data:
-            return self._data[str(path)][2]
-        return ""
-
-
-def pull_request_files(pull_request):
-    pull_request = pull_request.replace("/pull/", "/pulls/")
-    request = requests.get(
-        f"https://api.github.com/repos/{pull_request}/files"
-    )
-    request.raise_for_status()
-    # TODO remove directory at end of execution
-    temp_dir = tempfile.mkdtemp(prefix="padpo_")
-    pr = PullRequestInfo()
-    for file in request.json():
-        filename = file["filename"]
-        temp_file = Path(temp_dir) / filename
-        content_request = requests.get(file["raw_url"])
-        content_request.raise_for_status()
-        temp_file_dir = temp_file.parent
-        temp_file_dir.mkdir(parents=True, exist_ok=True)
-        temp_file.write_bytes(content_request.content)
-        pr.add_file(filename, temp_file, file["patch"])
-    return temp_dir, pr
 
 
 def main():
@@ -130,7 +87,8 @@ def main():
             pull_request = args.github
         if args.python_docs_fr:
             pull_request = f"python/python-docs-fr/pull/{args.python_docs_fr}"
-        path, pull_request_info = pull_request_files(pull_request)
+        pull_request_info = pull_request_files(pull_request)
+        path = pull_request_info.download_directory
 
     any_error = check_path(path, pull_request_info=pull_request_info)
     if any_error:
