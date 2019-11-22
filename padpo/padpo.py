@@ -7,24 +7,10 @@ import requests
 import simplelogging
 
 from padpo.pofile import PoFile
-from padpo.checkers.doublespace import DoubleSpaceChecker
-from padpo.checkers.empty import EmptyChecker
-from padpo.checkers.fuzzy import FuzzyChecker
-from padpo.checkers.grammalecte import GrammalecteChecker
-from padpo.checkers.linelength import LineLengthChecker
-from padpo.checkers.nbsp import NonBreakableSpaceChecker
+from padpo.checkers import checkers
+
 
 log = None
-
-
-checkers = [
-    DoubleSpaceChecker(),
-    EmptyChecker(),
-    FuzzyChecker(),
-    GrammalecteChecker(),
-    LineLengthChecker(),
-    NonBreakableSpaceChecker(),
-]
 
 
 def check_file(path, pull_request_info=None):
