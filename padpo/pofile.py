@@ -1,6 +1,7 @@
 """Managment of `*.po` files."""
 
 import re
+from typing import List
 
 import simplelogging
 
@@ -8,7 +9,10 @@ log = simplelogging.get_logger()
 
 
 class PoItem:
+    """Translation item."""
+
     def __init__(self, path, lineno):
+        """Initializer."""
         self.path = path[3:]
         self.lineno_start = lineno
         self.lineno_end = lineno
@@ -20,6 +24,7 @@ class PoItem:
         self.inside_pull_request = False
 
     def append_line(self, line):
+        """Append a line of a `*.po` file to the item."""
         self.lineno_end += 1
         if line.startswith("msgid"):
             self.parsing_msgid = True
@@ -36,6 +41,7 @@ class PoItem:
                 self.msgstr.append(line[1:-2])
 
     def __str__(self):
+        """Return string representation."""
         return (
             f"    - {self.msgid_full_content}\n"
             f"        => {self.msgstr_full_content}\n"
@@ -44,22 +50,35 @@ class PoItem:
 
     @property
     def msgid_full_content(self):
+        """Full content of the msgid."""
         return "".join(self.msgid)
 
     @property
     def msgstr_full_content(self):
+        """Full content of the msgstr."""
         return "".join(self.msgstr)
 
     @property
     def msgid_rst2txt(self):
+        """Full content of the msgid (reStructuredText escaped)."""
         return self.rst2txt(self.msgid_full_content)
 
     @property
     def msgstr_rst2txt(self):
+        """Full content of the msgstr (reStructuredText escaped)."""
         return self.rst2txt(self.msgstr_full_content)
 
     @staticmethod
     def rst2txt(text):
+        """
+        Escape reStructuredText markup.
+
+        The text is modified to transform reStructuredText markup
+        in textual version. For instance:
+
+        * "::" becomes ":"
+        * ":class:`PoFile`" becomes "« PoFile »"
+        """
         text = re.sub(r"::", r":", text)
         text = re.sub(r"``(.*?)``", r"« \1 »", text)
         text = re.sub(r"\"(.*?)\"", r"« \1 »", text)
@@ -72,20 +91,26 @@ class PoItem:
         return text
 
     def add_warning(self, checker_name: str, text: str) -> None:
+        """Add a checker warning to the item."""
         self.warnings.append(Warning(checker_name, text))
 
     def add_error(self, checker_name: str, text: str) -> None:
+        """Add a checker error to the item."""
         self.warnings.append(Error(checker_name, text))
 
 
 class PoFile:
+    """A `*.po` file information."""
+
     def __init__(self, path=None):
+        """Initializer."""
         self.content: List[PoItem] = []
         self.path = path
         if path:
             self.parse_file(path)
 
     def parse_file(self, path):
+        """Parse a `*.po` file according to its path."""
         # TODO assert path is a file, not a dir
         item = None
         with open(path, encoding="utf8") as f:
@@ -100,14 +125,17 @@ class PoFile:
             self.content.append(item)
 
     def __str__(self):
+        """Return string representation."""
         ret = f"Po file: {self.path}\n"
         ret += "\n".join(str(item) for item in self.content)
         return ret
 
     def rst2txt(self):
+        """Escape reStructuredText markup."""
         return "\n\n".join(item.msgstr_rst2txt for item in self.content)
 
     def display_warnings(self, pull_request_info=None):
+        """Log warnings and errors, return True if any errors."""
         self.tag_in_pull_request(pull_request_info)
         any_error = False
         for item in self.content:
@@ -124,6 +152,7 @@ class PoFile:
         return any_error
 
     def tag_in_pull_request(self, pull_request_info):
+        """Tag items being part of the pull request."""
         if not pull_request_info:
             for item in self.content:
                 item.inside_pull_request = True
@@ -138,12 +167,13 @@ class PoFile:
 
     @staticmethod
     def lines_in_diff(diff):
+        """Yield line numbers modified in a diff (new line numbers)."""
         for line in diff.splitlines():
             if line.startswith("@@"):
-                m = re.search(r"@@\s*\-\d+,\d+\s+\+(\d+),(\d+)\s+@@", line)
-                if m:
-                    line_start = int(m.group(1))
-                    nb_lines = int(m.group(2))
+                match = re.search(r"@@\s*\-\d+,\d+\s+\+(\d+),(\d+)\s+@@", line)
+                if match:
+                    line_start = int(match.group(1))
+                    nb_lines = int(match.group(2))
                     # github add 3 extra lines around diff info
                     extra_info_lines = 3
                     for lineno in range(
@@ -154,17 +184,21 @@ class PoFile:
 
 
 class Message:
+    """Checker message."""
+
     def __init__(self, checker_name: str, text: str):
+        """Initializer."""
         self.checker_name = checker_name
         self.text = text
 
     def __str__(self):
+        """Return string representation."""
         return f"[{self.checker_name:^14}] {self.text}"
 
 
 class Warning(Message):
-    pass
+    """Checker warning message."""
 
 
 class Error(Message):
-    pass
+    """Checker error message."""
