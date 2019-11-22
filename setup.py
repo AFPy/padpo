@@ -12,7 +12,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/vpoulailleau/padpo",
-    packages=["padpo"],
+    packages=["padpo", "padpo.checkers"],
     package_dir={"padpo": "padpo"},
     entry_points={"console_scripts": ["padpo=padpo.padpo:main"]},
     install_requires=["simplelogging", "wheel", "requests"],
