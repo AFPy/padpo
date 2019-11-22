@@ -1,9 +1,9 @@
+"""Entry point of padpo."""
+
 import argparse
 import sys
-import tempfile
 from pathlib import Path
 
-import requests
 import simplelogging
 
 from padpo.pofile import PoFile
@@ -15,23 +15,26 @@ log = None
 
 
 def check_file(path, pull_request_info=None):
-    file = PoFile(path)
+    """Check a `*.po` file."""
+    pofile = PoFile(path)
 
     for checker in checkers:
-        checker.check_file(file)
+        checker.check_file(pofile)
 
-    return file.display_warnings(pull_request_info)
+    return pofile.display_warnings(pull_request_info)
 
 
 def check_directory(path, pull_request_info=None):
+    """Check a directory containing `*.po` files."""
     path = Path(path)
     any_error = False
-    for file in path.rglob("*.po"):
-        any_error = check_file(file, pull_request_info) or any_error
+    for filepath in path.rglob("*.po"):
+        any_error = check_file(filepath, pull_request_info) or any_error
     return any_error
 
 
 def check_path(path, pull_request_info=None):
+    """Check a path (`*.po` file or directory)."""
     path = Path(path)
     if path.is_dir():
         return check_directory(path, pull_request_info)
@@ -40,6 +43,7 @@ def check_path(path, pull_request_info=None):
 
 
 def main():
+    """Entry point."""
     global log
     log = simplelogging.get_logger("__main__")
 
