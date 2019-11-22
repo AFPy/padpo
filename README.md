@@ -17,9 +17,7 @@ Pull request are welcome.
 
 ## Trademark
 
-* Code in one file (TM) :+1:
-* It works on my machine (TM) :computer:
-* Need refactoring (TM) :construction_worker:
+* Tests and debuggers are for those who create some bugs™ :bug: :interrobang:
 
 ## Usage
 
@@ -55,7 +53,7 @@ padpo --github python/python-docs-fr/pull/978
 
 ### Automatic installation
 
-```
+```bash
 pip install padpo
 ```
 
