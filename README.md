@@ -78,3 +78,11 @@ pip install padpo
 ## Update on PyPI
 
 `./deliver.sh`
+
+## Changelog
+
+### v0.4.0
+
+* use poetry: https://poetry.eustace.io/docs/
+* add some tests with tox and pytests
+* fix some false positive issues with grammalecte
