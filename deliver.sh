@@ -28,4 +28,5 @@ echo "ready to publish to PyPI?"
 read BOOL
 
 # package creation
+poetry build
 poetry publish
