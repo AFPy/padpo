@@ -1,9 +1,10 @@
 #!/bin/bash
 
+# configuration management
 git pull
 cat padpo/__init__.py | grep version
-cat setup.py | grep version
-echo "ready ?"
+cat pyproject.toml | grep version
+echo "ready?"
 read BOOL
 
 source venv/bin/activate
@@ -21,8 +22,10 @@ rm -f .coverage
 rm -fr htmlcov/
 rm -fr .pytest_cache
 
+# tests
+tox
+echo "ready to publish to PyPI?"
+read BOOL
 
 # package creation
-python setup.py sdist
-python setup.py bdist_wheel
-twine upload dist/*
+poetry publish

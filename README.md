@@ -74,25 +74,11 @@ pip install padpo
 3. Install dependencies
 
    ```bash
-   pip install -r requirements.txt
+   poetry install
    ```
 
-4. Get grammalecte (normally this is done automatically at first usage)
-
-   ```bash
-   pip install wheel
-   wget https://grammalecte.net/grammalecte/zip/Grammalecte-fr-v1.5.0.zip
-   unzip  Grammalecte-fr-v1.5.0.zip -d Grammalecte-fr-v1.5.0
-   cd Grammalecte-fr-v1.5.0
-   pip install .
-   ```
+   Note: this uses `poetry` that you can get here: https://poetry.eustace.io/docs/
 
 ## Update on PyPI
 
-* git pull
-* change version in `pyproject.toml` and in `padpo.__init__`
-* clean
-  * `rm -rf build/ dist/ eggs/`
-  * TODO make a script for this (and better clean)
-* `poetry build`
-* `poetry publish`
+`./deliver.sh`
