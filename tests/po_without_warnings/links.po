@@ -1,0 +1,11 @@
+#: ../Doc/using/windows.rst:1122
+msgid ""
+"The `Cygwin <https://cygwin.com/>`_ installer offers to install the Python "
+"interpreter as well (cf. `Cygwin package source <ftp://ftp.uni-erlangen.de/"
+"pub/pc/gnuwin32/cygwin/mirrors/cygnus/ release/python>`_, `Maintainer "
+"releases <http://www.tishler.net/jason/software/python/>`_)"
+msgstr ""
+"L’installateur `Cygwin <https://cygwin.com/>`_ offre d’installer "
+"l’interpréteur Python (cf. `Cygwin package source <ftp://ftp.uni-erlangen.de/"
+"pub/pc/gnuwin32/cygwin/mirrors/cygnus/ release/Python>`_, `Maintainer "
+"releases <http://www.tishler.net/jason/software/Python/>`_)"
