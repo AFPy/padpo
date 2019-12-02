@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "padpo"
+version = "0.3.0"
+description = "Linter for gettext files"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent"
+    # TODO: Add more
+]
+authors = ["Vincent Poulailleau <vpoulailleau@gmail.com>"]
+readme = "README.md"
+repository = "https://github.com/vpoulailleau/padpo"
+homepage = "https://github.com/vpoulailleau/padpo"
+documentation = "https://github.com/vpoulailleau/padpo"
+keywords = ["gettext", "linter"]
+license = "BSD-3-Clause"
+include = ["padpo/**/*.py"]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+requests = "2.22.0"
+simplelogging = "0.10.0"
+wheel = "0.33.6"  # for grammalecte
+setuptools = "42.0.2"  # for grammalecte
+
+[tool.poetry.dev-dependencies]
+pytest = "5.3.1"
+pytest-cov = "2.8.1"
+tox = "3.14.1"
+twine = "2.0.0"
+
+[tool.poetry.scripts]
+padpo = "padpo.padpo:main"
