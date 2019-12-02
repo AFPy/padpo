@@ -88,6 +88,7 @@ class PoItem:
         text = re.sub(
             r"\*(.*?)\*", r"« \1 »", text
         )  # TODO sauf si déjà entre «»
+        text = re.sub(r"<((?:http|https|ftp)://.*?)>", r"« \1 »", text)
         return text
 
     def add_warning(self, checker_name: str, text: str) -> None:
