@@ -1,0 +1,5 @@
+#: ../Doc/library/typing.rst:1047
+msgid "Provide basic introspection for generic types and special typing forms."
+msgstr ""
+"Fournit une introspection de base pour les types génériques et les "
+"formulaires de typage spéciaux."

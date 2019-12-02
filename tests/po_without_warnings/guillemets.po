@@ -1,0 +1,7 @@
+#: ../Doc/library/typing.rst:123
+msgid ""
+"However, it is possible to create a :func:`NewType` based on a 'derived' "
+"``NewType``::"
+msgstr ""
+"Cependant, il est possible de créer un :func:`NewType` basé sur un "
+"``NewType`` 'derived' ::"
