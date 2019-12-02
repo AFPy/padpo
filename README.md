@@ -15,10 +15,6 @@ BSD 3-clause
 
 Pull request are welcome.
 
-## Trademark
-
-* Tests and debuggers are for those who create some bugs™ :bug: :interrobang:
-
 ## Usage
 
 Using the *activated virtual environment* created during the installation:
