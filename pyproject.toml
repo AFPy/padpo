@@ -31,3 +31,22 @@ twine = "2.0.0"
 
 [tool.poetry.scripts]
 padpo = "padpo.padpo:main"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+isolated_build = True
+envlist = py36, py37, py38
+
+[testenv]
+whitelist_externals = poetry
+changedir = {toxinidir}/tests
+commands =
+    poetry install -v
+    # poetry run pytest -s -vv --cov={envsitepackagesdir}/padpo
+    poetry run pytest -s -vv --cov=padpo
+"""
