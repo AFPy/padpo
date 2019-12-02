@@ -86,11 +86,20 @@ class GrammalecteChecker(Checker):
     def filter_out(self, error):
         """Return True when grammalecte error should be ignored."""
         msg = error["sRuleId"]
-        if msg == "esp_milieu_ligne":
-            return True  # double space
-        if msg == "nbsp_avant_deux_points":
+        if msg in (
+            "esp_milieu_ligne",  # double space
+            "nbsp_avant_deux_points",  # NBSP
+            "nbsp_avant_double_ponctuation",  # NBSP
+        ):
             return True
-        if msg == "nbsp_avant_double_ponctuation":
+        if "typo_guillemets_typographiques_simples" in msg:
+            return True  # ignore ' quotes
+        msg_text = error["sMessage"]
+        if msg_text in (
+            "Accord de genre erroné : « ABC » est masculin.",
+            "Accord de genre erroné : « PEP » est masculin.",
+            "Accord de nombre erroné : « PEP » devrait être au pluriel.",
+        ):
             return True
         return False
 
