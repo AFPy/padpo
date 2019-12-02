@@ -102,6 +102,10 @@ class GrammalecteChecker(Checker):
             "Accord de genre erroné : « une entrée » est féminin, « utilisateur » est masculin.",
         ):
             return True
+        if "S’il s’agit d’un impératif" in msg_text:
+            if error["nStart"] == 0:
+                # ignore imperative conjugation at begining of 1st sentence
+                return True
         return False
 
 
