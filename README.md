@@ -90,11 +90,9 @@ pip install padpo
 ## Update on PyPI
 
 * git pull
-* activate venv
-* change version in `setup.py` and in `padpo.__init__`
+* change version in `pyproject.toml` and in `padpo.__init__`
 * clean
   * `rm -rf build/ dist/ eggs/`
   * TODO make a script for this (and better clean)
-* `python setup.py sdist`
-* `python setup.py bdist_wheel`
-* `twine upload dist/*`
+* `poetry build`
+* `poetry publish`
