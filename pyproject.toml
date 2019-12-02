@@ -17,7 +17,7 @@ license = "BSD-3-Clause"
 include = ["padpo/**/*.py"]
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = "^3.7"
 requests = "2.22.0"
 simplelogging = "0.10.0"
 wheel = "0.33.6"  # for grammalecte
@@ -40,7 +40,7 @@ build-backend = "poetry.masonry.api"
 legacy_tox_ini = """
 [tox]
 isolated_build = True
-envlist = py36, py37, py38
+envlist = py37, py38
 
 [testenv]
 whitelist_externals = poetry

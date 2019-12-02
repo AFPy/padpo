@@ -135,9 +135,10 @@ class PoFile:
         return "\n\n".join(item.msgstr_rst2txt for item in self.content)
 
     def display_warnings(self, pull_request_info=None):
-        """Log warnings and errors, return True if any errors."""
+        """Log warnings and errors, return errors and warnings lists."""
         self.tag_in_pull_request(pull_request_info)
-        any_error = False
+        errors = []
+        warnings = []
         for item in self.content:
             if not item.inside_pull_request:
                 continue
@@ -146,10 +147,11 @@ class PoFile:
             for message in item.warnings:
                 if isinstance(message, Error):
                     log.error(prefix, message)
-                    any_error = True
+                    errors.append(message)
                 elif isinstance(message, Warning):
                     log.warning(prefix, message)
-        return any_error
+                    warnings.append(message)
+        return errors, warnings
 
     def tag_in_pull_request(self, pull_request_info):
         """Tag items being part of the pull request."""

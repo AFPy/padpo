@@ -27,10 +27,13 @@ def check_file(path, pull_request_info=None):
 def check_directory(path, pull_request_info=None):
     """Check a directory containing `*.po` files."""
     path = Path(path)
-    any_error = False
+    result_errors = []
+    result_warnings = []
     for filepath in path.rglob("*.po"):
-        any_error = check_file(filepath, pull_request_info) or any_error
-    return any_error
+        errors, warnings = check_file(filepath, pull_request_info)
+        result_errors.extend(errors)
+        result_warnings.extend(warnings)
+    return result_errors, result_warnings
 
 
 def check_path(path, pull_request_info=None):
@@ -94,6 +97,6 @@ def main():
         pull_request_info = pull_request_files(pull_request)
         path = pull_request_info.download_directory
 
-    any_error = check_path(path, pull_request_info=pull_request_info)
-    if any_error:
+    errors, warnings = check_path(path, pull_request_info=pull_request_info)
+    if errors:
         sys.exit(1)

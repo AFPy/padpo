@@ -14,5 +14,6 @@ def pytest_generate_tests(metafunc):
 
 
 def test_coverage(known_good_po_file):
-    # TODO get an empty list of warnings
-    assert check_file(known_good_po_file) == False
+    errors, warnings = check_file(known_good_po_file)
+    assert not errors
+    assert not warnings
