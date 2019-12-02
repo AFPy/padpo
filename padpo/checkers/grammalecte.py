@@ -99,6 +99,7 @@ class GrammalecteChecker(Checker):
             "Accord de genre erroné : « ABC » est masculin.",
             "Accord de genre erroné : « PEP » est masculin.",
             "Accord de nombre erroné : « PEP » devrait être au pluriel.",
+            "Accord de genre erroné : « une entrée » est féminin, « utilisateur » est masculin.",
         ):
             return True
         return False
