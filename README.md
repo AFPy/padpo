@@ -81,9 +81,10 @@ pip install padpo
 
 ## Changelog
 
-### v0.5.0 (not released yet)
+### v0.5.0 (2019-12-3)
 
 * check spelling errors with grammalecte
+* tag releases!
 
 ### v0.4.0 (2019-12-2)
 
