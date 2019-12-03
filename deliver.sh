@@ -64,6 +64,9 @@ done
 
 # package creation
 poetry build
-poetry publish
+until poetry publish
+do
+  echo "Try again"
+done
 
 echo "Done"
