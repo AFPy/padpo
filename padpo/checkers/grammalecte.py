@@ -5,6 +5,7 @@ import re
 import subprocess
 import tempfile
 from pathlib import Path
+from typing import Set
 from zipfile import ZipFile
 
 import requests
@@ -25,6 +26,8 @@ class GrammalecteChecker(Checker):
         """Initialiser."""
         super().__init__()
         self.dir = None
+        self.personal_dict: Set[str] = set()
+        self.get_personal_dict()
 
     @staticmethod
     def run_grammalecte(filename: str) -> subprocess.CompletedProcess:
@@ -82,7 +85,7 @@ class GrammalecteChecker(Checker):
                 item.add_warning(
                     self.name,
                     f'{error["sMessage"]} => '
-                    f'###{item.msgstr_rst2txt[start:end]}###'
+                    f"###{item.msgstr_rst2txt[start:end]}###",
                 )
 
     def filter_out_grammar_error(self, error):
@@ -124,7 +127,7 @@ class GrammalecteChecker(Checker):
                 item.add_warning(
                     self.name,
                     f'Unknown word "{word}" in '
-                    f'###{item.msgstr_rst2txt[start:end]}###'
+                    f"###{item.msgstr_rst2txt[start:end]}###",
                 )
 
     def filter_out_spelling_error(self, error):
@@ -132,14 +135,34 @@ class GrammalecteChecker(Checker):
         word = error["sValue"]
         if set(word) == {"x"}:
             return True  # word is xxxxx or xxxxxxxx…
+        if word.strip() in self.personal_dict:
+            return True  # white list
         return False
+
+    def get_personal_dict(self):
+        """
+        Add spelling white list.
+
+        Based on
+        https://raw.githubusercontent.com/python/python-docs-fr/3.8/dict
+        """
+        download_request = requests.get(
+            "https://raw.githubusercontent.com/python/python-docs-fr/3.8/dict"
+        )
+        download_request.raise_for_status()
+        for line in download_request.text.splitlines():
+            word = line.strip()
+            self.personal_dict.add(word)
+            self.personal_dict.add(word.title())
+        self.personal_dict.add("HMAC")
+        log.error(self.personal_dict)
 
 
 def install_grammalecte():
     """Install grammalecte CLI."""
     log.warning("Missing grammalecte, trying to install it")
     # with tempfile.TemporaryDirectory(prefix="padpo_") as tmpdirname:
-    tmpdirname = "/tmp/_padpo_gramma"
+    tmpdirname = "/tmp/_padpo_gramma"  # TODO
     tmpdirname = Path(tmpdirname)
     tmpdirname.mkdir(exist_ok=True)
     download_request = requests.get(
