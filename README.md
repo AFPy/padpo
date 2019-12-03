@@ -81,7 +81,11 @@ pip install padpo
 
 ## Changelog
 
-### v0.4.0
+### v0.5.0 (not released yet)
+
+* check spelling errors with grammalecte
+
+### v0.4.0 (2019-12-2)
 
 * use poetry: https://poetry.eustace.io/docs/
 * add some tests with tox and pytests

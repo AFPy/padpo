@@ -62,6 +62,7 @@ class GrammalecteChecker(Checker):
         if result.stdout:
             warnings = json.loads(result.stdout)
             self.manage_grammar_errors(warnings, pofile)
+            self.manage_spelling_errors(warnings, pofile)
         Path(filename).unlink()
 
     def check_item(self, item: PoItem):
@@ -69,6 +70,7 @@ class GrammalecteChecker(Checker):
         pass
 
     def manage_grammar_errors(self, warnings, pofile: PoFile):
+        """Manage grammar errors returned by grammalecte."""
         for warning in warnings["data"]:
             for error in warning["lGrammarErrors"]:
                 if self.filter_out_grammar_error(error):
@@ -79,10 +81,8 @@ class GrammalecteChecker(Checker):
                 end = max(0, int(error["nEnd"]) + 10)
                 item.add_warning(
                     self.name,
-                    error["sMessage"]
-                    + " => ###"
-                    + item.msgstr_rst2txt[start:end]
-                    + "###",
+                    f'{error["sMessage"]} => '
+                    f'###{item.msgstr_rst2txt[start:end]}###'
                 )
 
     def filter_out_grammar_error(self, error):
@@ -108,6 +108,30 @@ class GrammalecteChecker(Checker):
             if error["nStart"] == 0:
                 # ignore imperative conjugation at begining of 1st sentence
                 return True
+        return False
+
+    def manage_spelling_errors(self, warnings, pofile: PoFile):
+        """Manage spelling errors returned by grammalecte."""
+        for warning in warnings["data"]:
+            for error in warning["lSpellingErrors"]:
+                if self.filter_out_spelling_error(error):
+                    continue
+                item_index = int(warning["iParagraph"]) // 2
+                item = pofile.content[item_index]
+                start = max(0, int(error["nStart"]) - 40)
+                end = max(0, int(error["nEnd"]) + 10)
+                word = error["sValue"]
+                item.add_warning(
+                    self.name,
+                    f'Unknown word "{word}" in '
+                    f'###{item.msgstr_rst2txt[start:end]}###'
+                )
+
+    def filter_out_spelling_error(self, error):
+        """Return True when grammalecte error should be ignored."""
+        word = error["sValue"]
+        if set(word) == {"x"}:
+            return True  # word is xxxxx or xxxxxxxx…
         return False
 
 
