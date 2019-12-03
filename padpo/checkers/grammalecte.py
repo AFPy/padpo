@@ -154,15 +154,12 @@ class GrammalecteChecker(Checker):
             word = line.strip()
             self.personal_dict.add(word)
             self.personal_dict.add(word.title())
-        self.personal_dict.add("HMAC")
-        log.error(self.personal_dict)
 
 
 def install_grammalecte():
     """Install grammalecte CLI."""
     log.warning("Missing grammalecte, trying to install it")
-    # with tempfile.TemporaryDirectory(prefix="padpo_") as tmpdirname:
-    tmpdirname = "/tmp/_padpo_gramma"  # TODO
+    tmpdirname = tempfile.mkdtemp(prefix="padpo_grammalecte_")
     tmpdirname = Path(tmpdirname)
     tmpdirname.mkdir(exist_ok=True)
     download_request = requests.get(
