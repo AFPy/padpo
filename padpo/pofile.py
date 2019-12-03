@@ -88,6 +88,9 @@ class PoItem:
         text = re.sub(
             r"\*(.*?)\*", r"« \1 »", text
         )  # TODO sauf si déjà entre «»
+        text = re.sub(
+            r"`(.*?)\s*<((?:http|https|ftp)://.*?)>`_", r"\1 (« \2 »)", text
+        )
         text = re.sub(r"<((?:http|https|ftp)://.*?)>", r"« \1 »", text)
         return text
 
