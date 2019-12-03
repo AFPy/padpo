@@ -1,12 +1,32 @@
 #!/bin/bash
 
-# configuration management
-git pull
-cat pyproject.toml | grep version
-echo "ready?"
-read BOOL
-
 source venv/bin/activate
+
+# configuration management
+git rebase
+git status
+
+# version management
+VERSION=`grep "version =" pyproject.toml | sed -e 's/.*= "//' -e 's/"//'`
+VERSION="v${VERSION}"
+echo "Version to be delivered: ${VERSION}"
+echo -n "Is it OK? (y/n) [y]: "
+read BOOL
+if [ "$BOOL" == "n" ]
+then
+    exit 1
+fi
+echo ""
+
+# changelog management
+grep -A 30 Changelog README.md 
+echo -n "Do you want to add something in README.md? (y/n) [n]: "
+read BOOL
+if [ "$BOOL" == "y" ]
+then
+    exit 1
+fi
+echo ""
 
 # clean
 rm -rf build/ dist/ .eggs/
@@ -23,9 +43,27 @@ rm -fr .pytest_cache
 
 # tests
 tox
-echo "ready to publish to PyPI?"
+echo -n "Is it OK? (y/n) [y]: "
 read BOOL
+if [ "$BOOL" == "n" ]
+then
+    exit 1
+fi
+echo ""
+
+# git tag + push
+git tag -a $VERSION -m "Version ${VERSION}"
+until git push
+do
+  echo "Try again"
+done
+until git push --tags
+do
+  echo "Try again"
+done
 
 # package creation
 poetry build
 poetry publish
+
+echo "Done"
