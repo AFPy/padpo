@@ -2,7 +2,6 @@
 
 # configuration management
 git pull
-cat padpo/__init__.py | grep version
 cat pyproject.toml | grep version
 echo "ready?"
 read BOOL
