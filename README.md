@@ -81,6 +81,10 @@ pip install padpo
 
 ## Changelog
 
+### v0.6.0 (2019-12-9)
+
+* check errors against defined glossaries
+
 ### v0.5.0 (2019-12-3)
 
 * check spelling errors with grammalecte
