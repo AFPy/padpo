@@ -158,6 +158,33 @@ glossary.update(
         "CPython": ["CPython"],
         "decorator": ["décorateur"],
         "descriptor": ["descripteur"],
+        "dictionary": ["dictionnaire"],
+        "dictionary view": ["vue de dictionnaire", "vues de dictionnaire"],
+        "docstring": [
+            "*docstring*",
+            "*docstrings*",
+            "chaîne de documentation",
+            "chaînes de documentation",
+        ],
+        "duck-typing": ["*duck-typing*"],
+        "expression": ["expression"],
+        "extension module": ["module d'extension", "modules d'extension"],
+        "f-string": ["f-string"],
+        "file object": ["objet fichier", "objets fichier"],
+        "file-like object": [
+            "objet fichier-compatible",
+            "objets fichier-compatible",
+        ],
+        "finder": ["chercheur"],
+        "floor division": ["division entière", "divisions entières"],
+        "function": ["fonction"],
+        "function annotation": [
+            "annotation de fonction",
+            "annotations de fonction",
+        ],
+        "__future__": ["__future__"],
+        "garbage collection": ["ramasse-miettes"],
+        "generator": ["générateur"],
         "iterator": ["itérateur"],
     }
 )
