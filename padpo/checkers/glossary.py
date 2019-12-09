@@ -19,7 +19,9 @@ class GlossaryChecker(Checker):
         original_content = re.sub(r"« .*? »", "", original_content)
         translated_content = item.msgstr_full_content.lower()
         for word, translations in glossary.items():
-            if word.lower() in original_content:
+            if re.match(fr"\b{word.lower()}\b", original_content):
+                # TODO with new word boundary search above, manage plurals
+                # and other things in glossary
                 for translated_word in translations:
                     if translated_word.lower() in translated_content:
                         break
