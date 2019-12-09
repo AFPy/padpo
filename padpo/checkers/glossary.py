@@ -184,7 +184,29 @@ glossary.update(
         ],
         "__future__": ["__future__"],
         "garbage collection": ["ramasse-miettes"],
-        "generator": ["générateur"],
+        "generator": ["générateur", "génératrice"],
+        "generator iterator": [
+            "itérateur de générateur",
+            "iterateurs de générateur",
+        ],
+        "generator expression": [
+            "expression génératrice",
+            "expressions génératrices",
+        ],
+        "generic function": ["fonction générique", "fonctions génériques"],
+        "GIL": ["GIL"],
+        "global interpreter lock": ["verrou global de l'interpréteur"],
+        "hash-based pyc": ["*pyc* utilisant le hachage"],
+        "hashable": ["hachable"],
+        # "IDLE": ["IDLE"],  # confusion with "idle"
+        "immutable": ["immuable"],
+        "import path": ["chemin des importations", "chemins des importations"],
+        "importing": ["importer", "important", "importation"],
+        "importer": ["importateur"],
+        "interactive": ["interactif"],
+        "interpreted": ["interprété"],
+        "interpreter shutdown": ["arrêt de l'interpréteur"],
+        "iterable": ["itérable"],
         "iterator": ["itérateur"],
     }
 )
