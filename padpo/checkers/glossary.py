@@ -250,6 +250,37 @@ glossary.update(
             "arguments positionnels",
         ],
         "provisional API": ["API provisoire"],
+        "provisional package": ["paquet provisoire", "paquets provisoires"],
+        "pythonic": ["*pythonique*"],
+        "qualified name": ["nom qualifié", "noms qualifiés"],
+        "reference count": ["nombre de références"],
+        "regular package": ["paquet classique", "paquets classiques"],
+        "__slots__": ["``__slots__``"],
+        "sequence": ["séquence"],
+        "single dispatch": ["distribution simple"],
+        "slice": ["tranche"],
+        "special method": ["méthode spéciale", "méthodes spéciales"],
+        "statement": ["instruction"],
+        "text encoding": ["encodage de texte"],
+        "text file": ["fichier texte", "fichiers texte"],
+        "triple quoted string": [
+            "chaîne entre triple guillemets",
+            "chaînes entre triple guillemets",
+        ],
+        "type": ["type"],
+        "type alias": ["alias de type"],
+        "type hint": ["indication de type", "indications de type"],
+        "universal newlines": ["retours à la ligne universels"],
+        "variable annotation": [
+            "annotation de variable",
+            "annotations de variables",
+        ],
+        "virtual environment": [
+            "environnement virtuel",
+            "environnements virtuels",
+        ],
+        "virtual machine": ["machine virtuelle", "machines virtuelles"],
+        "zen of Python": ["le zen de Python"],
     }
 )
 
