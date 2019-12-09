@@ -328,4 +328,3 @@ glossary.update(
         "zen of Python": ["le zen de Python"],
     }
 )
-
