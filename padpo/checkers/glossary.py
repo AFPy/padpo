@@ -1,5 +1,7 @@
 """Checker for glossary usage."""
 
+import re
+
 from padpo.checkers.baseclass import Checker
 from padpo.pofile import PoItem
 
@@ -13,7 +15,8 @@ class GlossaryChecker(Checker):
         """Check an item in a `*.po` file."""
         if not item.msgstr_full_content:
             return  # no warning
-        original_content = item.msgid_full_content.lower()
+        original_content = item.msgid_rst2txt.lower()
+        original_content = re.sub(r"« .*? »", "", original_content)
         translated_content = item.msgstr_full_content.lower()
         for word, translations in glossary.items():
             if word.lower() in original_content:
@@ -29,7 +32,7 @@ class GlossaryChecker(Checker):
                     possibilities += '"'
                     item.add_warning(
                         self.name,
-                        f"Found {word} that is not translated in "
+                        f'Found "{word}" that is not translated in '
                         f"{possibilities} in ###{item.msgstr_full_content}"
                         "###.",
                     )
