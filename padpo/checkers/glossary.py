@@ -85,14 +85,14 @@ glossary = {
     "parameter": ["paramètre"],
     "pickle": ["sérialiser"],  # TODO word boundaries (regex ?)
     "prompt": ["invite"],
-    "raise": ["lever"],
+    "raise": ["lever", "levé"],
     "regular expression": [
         "expression rationnelle",
         "expressions rationnelles",
         "expression régulière",
         "expressions régulières",
     ],
-    "return": ["renvoie"],
+    "return": ["renvoie", "renvoyé"],
     "setter": ["mutateur"],
     "simple quote": ["guillemet simple", "guillemets simples"],
     "socket": [
@@ -112,3 +112,53 @@ glossary = {
     "underscore": ["tiret bas", "*underscore*"],
     "whitespace": ["caractère d'espacement", "caractères d'espacement"],
 }
+
+# https://github.com/python/python-docs-fr/blob/
+# ccc2e5863e8d814c3ec9463be70db6bbaf611462/glossary.po
+glossary.update(
+    {
+        "abstract base class": [
+            "classe de base abstraite",
+            "classes de base abstraites",
+        ],
+        "annotation": ["annotation"],
+        "asynchronous context manager": [
+            "gestionnaire de contexte asynchrone",
+            "gestionnaires de contexte asynchrone",
+        ],
+        "asynchronous generator": [
+            "générateur asynchrone",
+            "générateurs asynchrones",
+        ],
+        "asynchronous iterable": [
+            "itérable asynchrone",
+            "itérables asynchrones",
+        ],
+        "asynchronous": ["asynchrone"],
+        "attribute": ["attribut"],
+        "awaitable": ["*awaitable*"],
+        "BDFL": ["*BDFL*"],
+        "binary file": ["fichier binaire", "fichiers binaires"],
+        "bytes-like object": [
+            "objet octet-compatible",
+            "objets octet-compatible",
+        ],
+        "bytecode": ["code intermédiaire", "*bytecode*"],
+        "class": ["classe"],
+        "class variable": ["variable de classe", "variables de classe"],
+        "coercion": ["coercition"],
+        "complex number": ["nombre complexe", "nombres complexes"],
+        "context manager": [
+            "gestionnaire de contexte",
+            "gestionnaires de contexte",
+        ],
+        "context variable": ["variable de contexte", "variables de contexte"],
+        "contiguous": ["contigu"],
+        "coroutine": ["coroutine"],
+        "CPython": ["CPython"],
+        "decorator": ["décorateur"],
+        "descriptor": ["descripteur"],
+        "iterator": ["itérateur"],
+    }
+)
+
