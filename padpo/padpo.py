@@ -1,6 +1,7 @@
 """Entry point of padpo."""
 
 import argparse
+import pkg_resources
 import sys
 from pathlib import Path
 
@@ -91,7 +92,13 @@ def main():
         help="ID of pull request in python-docs-fr repository",
         default=0,
     )
+    files.add_argument("--version", action="store_true", help="Return version")
     args = parser.parse_args()
+
+    if args.version:
+        print(pkg_resources.get_distribution('padpo').version)
+        sys.exit(0)
+
     if args.verbose < 1:
         log.reduced_logging()
     elif args.verbose < 2:
