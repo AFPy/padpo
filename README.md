@@ -81,6 +81,13 @@ pip install padpo
 
 ## Changelog
 
+### v0.7.0 (2019-12-11)
+
+* add `--version` CLI option to display the current version of `padpo`
+* `--input-path` CLI option now accepts several paths as in
+  `padpo --input-path file1.po file2.po directory1 directory2` or
+  `padpo -i file1.po file2.po directory1 directory2`
+
 ### v0.6.0 (2019-12-9)
 
 * check errors against defined glossaries
