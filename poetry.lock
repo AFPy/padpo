@@ -332,7 +332,7 @@ description = "Fast, Extensible Progress Meter"
 name = "tqdm"
 optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*"
-version = "4.40.1"
+version = "4.40.2"
 
 [package.extras]
 dev = ["py-make (>=0.1.0)", "twine", "argopt", "pydoc-markdown"]
@@ -574,8 +574,8 @@ tox = [
     {file = "tox-3.14.1.tar.gz", hash = "sha256:bcfa3e40abc1e9b70607b56adfd976fe7dc8286ad56aab44e3151daca7d2d0d0"},
 ]
 tqdm = [
-    {file = "tqdm-4.40.1-py2.py3-none-any.whl", hash = "sha256:895796ea8df435b6f502bf122f2b2034a3d48e6d8ff52175606ac1051b0e3e12"},
-    {file = "tqdm-4.40.1.tar.gz", hash = "sha256:e405d16c98fcf30725d0c9d493ed07302a18846b5452de5253030ccd18996f87"},
+    {file = "tqdm-4.40.2-py2.py3-none-any.whl", hash = "sha256:7543892c59720e36e4212180274d8f58dde36803bc1f6370fd09afa20b8f5892"},
+    {file = "tqdm-4.40.2.tar.gz", hash = "sha256:f0ab01cf3ae5673d18f918700c0165e5fad0f26b5ebe4b34f62ead92686b5340"},
 ]
 twine = [
     {file = "twine-2.0.0-py3-none-any.whl", hash = "sha256:5319dd3e02ac73fcddcd94f035b9631589ab5d23e1f4699d57365199d85261e1"},
