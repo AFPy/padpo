@@ -106,10 +106,7 @@ def main():
     else:
         log.full_logging()
 
-    if args.input_path:
-        path = args.input_path
-        pull_request_info = None
-    else:
+    if args.github or args.python_docs_fr:
         pull_request = ""
         if args.github:
             pull_request = args.github
@@ -117,6 +114,9 @@ def main():
             pull_request = f"python/python-docs-fr/pull/{args.python_docs_fr}"
         pull_request_info = pull_request_files(pull_request)
         path = [pull_request_info.download_directory]
+    else:
+        path = args.input_path
+        pull_request_info = None
 
     errors, warnings = check_paths(path, pull_request_info=pull_request_info)
     if errors:
