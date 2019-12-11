@@ -45,6 +45,17 @@ def check_path(path, pull_request_info=None):
         return check_file(path, pull_request_info)
 
 
+def check_paths(paths, pull_request_info=None):
+    """Check a list of paths (`*.po` file or directory)."""
+    result_errors = []
+    result_warnings = []
+    for path in paths:
+        errors, warnings = check_path(path, pull_request_info)
+        result_errors.extend(errors)
+        result_warnings.extend(warnings)
+    return result_errors, result_warnings
+
+
 def main():
     """Entry point."""
     global log
@@ -59,7 +70,10 @@ def main():
         metavar="PATH",
         type=str,
         help="path of the file or directory to check",
-        default="",
+        default=[],
+        # allow the user to provide no path at all,
+        # this helps writing scripts
+        nargs="*",
     )
     files.add_argument(
         "-g",
@@ -95,8 +109,8 @@ def main():
         if args.python_docs_fr:
             pull_request = f"python/python-docs-fr/pull/{args.python_docs_fr}"
         pull_request_info = pull_request_files(pull_request)
-        path = pull_request_info.download_directory
+        path = [pull_request_info.download_directory]
 
-    errors, warnings = check_path(path, pull_request_info=pull_request_info)
+    errors, warnings = check_paths(path, pull_request_info=pull_request_info)
     if errors:
         sys.exit(1)
