@@ -25,7 +25,7 @@ setuptools = "42.0.2"  # for grammalecte
 
 [tool.poetry.dev-dependencies]
 pytest = "6.0.1"
-pytest-cov = "2.8.1"
+pytest-cov = "2.10.0"
 tox = "3.18.1"
 twine = "3.2.0"
 
