@@ -1,0 +1,30 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=24d2bc5ffa5ffc6083c070293660c1a117101d4bf773ee3fd8e49f0be7a6e031
+language: python
+matrix:
+  include:
+    - python: 3.8
+      dist: bionic
+      sudo: true
+    - python: 3.7
+      dist: xenial
+      sudo: true
+
+before_install:
+  - pip install poetry
+
+install:
+  - poetry install
+
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+script:
+  - tox
+after_script:
+  - echo "$TRAVIS_PULL_REQUEST"
+  - echo "$TRAVIS_PYTHON_VERSION"
+  - find . -name ".coverage"
+  - if [[ "$TRAVIS_PULL_REQUEST" == "false" && "$TRAVIS_PYTHON_VERSION" == "3.7" ]]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT tests/coverage.xml; fi
