@@ -75,6 +75,10 @@ pip install padpo
 
 ## Changelog
 
+### v0.8.0 (not released yet)
+
+* use [`pygrammalecte`](https://github.com/vpoulailleau/pygrammalecte)
+
 ### v0.7.0 (2019-12-11)
 
 * add `--version` CLI option to display the current version of `padpo`
