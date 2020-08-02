@@ -20,7 +20,7 @@ include = ["padpo/**/*.py"]
 python = "^3.7"
 requests = "2.24.0"
 simplelogging = "0.10.0"
-wheel = "0.33.6"  # for grammalecte
+wheel = "0.34.2"  # for grammalecte
 setuptools = "42.0.2"  # for grammalecte
 
 [tool.poetry.dev-dependencies]
