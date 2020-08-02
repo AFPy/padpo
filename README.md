@@ -55,25 +55,19 @@ pip install padpo
 
 ### Manual installation
 
-1. Create a virtual environment with Python 3.7 and above
-
-   ```bash
-   python3.7 -m venv venv
-   ```
-
-2. Activate the virtual environment
-
-   ```bash
-   source venv/bin/activate
-   ```
-
-3. Install dependencies
+1. Install dependencies
 
    ```bash
    poetry install
    ```
 
    Note: this uses `poetry` that you can get here: https://poetry.eustace.io/docs/
+
+2. Use virtual environment$
+
+   ```bash
+   poetry shell
+   ```
 
 ## Update on PyPI
 
