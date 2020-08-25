@@ -102,6 +102,8 @@ class GrammalecteChecker(Checker):
             return True  # word is xxxxx or xxxxxxxx…
         if warning.word.strip() in self.personal_dict:
             return True  # white list
+        if warning.word.endswith("_"):
+            return True
         return False
 
     def get_personal_dict(self):
