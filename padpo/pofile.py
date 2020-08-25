@@ -144,11 +144,17 @@ class PoFile:
                 continue
             for message in item.warnings:
                 if isinstance(message, Error):
-                    log.error(f"{self.path}:{item.lineno_start}: error: %s", message)
+                    log.error(
+                        f"error: %s",
+                        message,
+                        extra={"pofile": self.path, "poline": item.lineno_start},
+                    )
                     errors.append(message)
                 elif isinstance(message, Warning):
                     log.warning(
-                        f"{self.path}:{item.lineno_start}: warning: %s", message
+                        f"warning: %s",
+                        message,
+                        extra={"pofile": self.path, "poline": item.lineno_start},
                     )
                     warnings.append(message)
         return errors, warnings

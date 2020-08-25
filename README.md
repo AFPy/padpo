@@ -53,6 +53,11 @@ padpo --github python/python-docs-fr/pull/978
 
 ![Screenshot](screenshot.png)
 
+### Color
+
+By default, the output is colorless, and formatted like GCC messages. You can use `-c`
+or `--color` option to get a colored output.
+
 ## Installation
 
 ### Automatic installation

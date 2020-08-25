@@ -83,7 +83,6 @@ def main():
         help="path of pull request in GitHub to check",
         default="",
     )
-    files.add_argument("-c", "--color", action="store_true", help="color output")
     files.add_argument(
         "-p",
         "--python-docs-fr",
@@ -93,6 +92,7 @@ def main():
         default=0,
     )
     files.add_argument("--version", action="store_true", help="Return version")
+    parser.add_argument("-c", "--color", action="store_true", help="color output")
     args = parser.parse_args()
 
     if args.version:
@@ -100,9 +100,13 @@ def main():
         sys.exit(0)
 
     if args.color:
-        console_format = "%(log_color)s[%(levelname)-8s]%(reset)s %(message)s"
+        console_format = (
+            "%(log_color)s[%(levelname)-8s]%(reset)s "
+            "%(green)s%(pofile)s:%(poline)s: "
+            "%(cyan)s%(message)s%(reset)s"
+        )
     else:
-        console_format = "%(message)s"
+        console_format = "%(pofile)s:%(poline)s: %(message)s"
     log = simplelogging.get_logger("__main__", console_format=console_format)
 
     if args.verbose < 1:
