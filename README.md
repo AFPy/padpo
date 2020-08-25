@@ -92,9 +92,7 @@ pip install padpo
 
 * use [`pygrammalecte`](https://github.com/vpoulailleau/pygrammalecte)
 * add continuous integration
-* fix vpoulailleau/padpo#12, vpoulailleau/padpo#13, vpoulailleau/padpo#14,
-  vpoulailleau/padpo#15, vpoulailleau/padpo#17, vpoulailleau/padpo#18,
-  vpoulailleau/padpo#20
+* fix #12, #13, #14, #15, #17, #18, #20
 * add `--color` CLI option to get a colored output (default is colorless)
 
 ### v0.7.0 (2019-12-11)
