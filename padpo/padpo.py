@@ -103,10 +103,10 @@ def main():
         console_format = (
             "%(log_color)s[%(levelname)-8s]%(reset)s "
             "%(green)s%(pofile)s:%(poline)s: "
-            "%(cyan)s%(message)s%(reset)s"
+            "%(cyan)s[%(checker)s] %(message)s%(reset)s"
         )
     else:
-        console_format = "%(pofile)s:%(poline)s: %(message)s"
+        console_format = "%(pofile)s:%(poline)s: %(leveldesc)s: %(message)s"
     log = simplelogging.get_logger("__main__", console_format=console_format)
 
     if args.verbose < 1:

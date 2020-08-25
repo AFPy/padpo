@@ -145,16 +145,24 @@ class PoFile:
             for message in item.warnings:
                 if isinstance(message, Error):
                     log.error(
-                        f"error: %s",
-                        message,
-                        extra={"pofile": self.path, "poline": item.lineno_start},
+                        message.text,
+                        extra={
+                            "pofile": self.path,
+                            "poline": item.lineno_start,
+                            "checker": message.checker_name,
+                            "leveldesc": "error",
+                        },
                     )
                     errors.append(message)
                 elif isinstance(message, Warning):
                     log.warning(
-                        f"warning: %s",
-                        message,
-                        extra={"pofile": self.path, "poline": item.lineno_start},
+                        message.text,
+                        extra={
+                            "pofile": self.path,
+                            "poline": item.lineno_start,
+                            "checker": message.checker_name,
+                            "leveldesc": "warning",
+                        },
                     )
                     warnings.append(message)
         return errors, warnings
