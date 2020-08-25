@@ -4,6 +4,9 @@ import tempfile
 from pathlib import Path
 
 import requests
+import simplelogging
+
+log = simplelogging.get_logger()
 
 
 class PullRequestInfo:
@@ -40,9 +43,7 @@ class PullRequestInfo:
 def pull_request_files(pull_request: str):
     """Return pull request information."""
     pull_request = pull_request.replace("/pull/", "/pulls/")
-    request = requests.get(
-        f"https://api.github.com/repos/{pull_request}/files"
-    )
+    request = requests.get(f"https://api.github.com/repos/{pull_request}/files")
     request.raise_for_status()
     # TODO remove directory at end of execution
     temp_dir = tempfile.mkdtemp(prefix="padpo_")
@@ -56,5 +57,7 @@ def pull_request_files(pull_request: str):
         temp_file_dir = temp_file.parent
         temp_file_dir.mkdir(parents=True, exist_ok=True)
         temp_file.write_bytes(content_request.content)
-        pr.add_file(filename, temp_file, fileinfo["patch"])
+        if "patch" in fileinfo:
+            # if a patch is provided (patch is small enough)
+            pr.add_file(filename, temp_file, fileinfo["patch"])
     return pr
