@@ -82,8 +82,8 @@ class PoItem:
         text = re.sub(r"::", r":", text)
         text = re.sub(r"``(.*?)``", r"« \1 »", text)
         text = re.sub(r"\"(.*?)\"", r"« \1 »", text)
-        text = re.sub(r":pep:`(.*?)`", r"PEP \1", text)
-        text = re.sub(r":[a-z:]+:`(.+?)`", r"« \1 »", text)
+        text = re.sub(r":[Pp][Ee][Pp]:`(.*?)`", r"PEP \1", text)
+        text = re.sub(r":[a-zA-Z:]+:`(.+?)`", r"« \1 »", text)
         text = re.sub(r"\*\*(.*?)\*\*", r"« \1 »", text)
         text = re.sub(r"\*(.*?)\*", r"« \1 »", text)  # TODO sauf si déjà entre «»
         text = re.sub(r"`(.*?)\s*<((?:http|https|ftp)://.*?)>`_", r"\1 (« \2 »)", text)
