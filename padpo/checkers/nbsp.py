@@ -27,7 +27,8 @@ class NonBreakableSpaceChecker(Checker):
                 prefix = item.msgstr_rst2txt[match.start(1) : match.end(1)]
                 suffix = item.msgstr_rst2txt[match.start(3) : match.end(3)]
                 match = item.msgstr_rst2txt[match.start(2) : match.end(2)]
-                self.__add_message_space_before(item, prefix, match, suffix)
+                if prefix[-1] not in ":?!.":
+                    self.__add_message_space_before(item, prefix, match, suffix)
 
     def __add_message(self, item, prefix, match, suffix):
         item.add_error(

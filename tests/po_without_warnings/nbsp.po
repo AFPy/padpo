@@ -1,0 +1,9 @@
+#: ../Doc/library/typing.rst:19
+msgid ""
+"Non breakable space.::"
+msgstr ""
+"Espace insécable. ::"
+" Espace insécable ! ::"
+" Espace insécable ? ::"
+" Oui !"
+" Non ?"
