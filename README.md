@@ -88,10 +88,12 @@ pip install padpo
 
 ## Changelog
 
-### v0.8.0 (not released yet)
+### v0.8.0 (2020-08-25)
 
 * use [`pygrammalecte`](https://github.com/vpoulailleau/pygrammalecte)
 * add continuous integration
+* fix #12, #13, #14, #15, #17, #18, #20
+* add `--color` CLI option to get a colored output (default is colorless)
 
 ### v0.7.0 (2019-12-11)
 
