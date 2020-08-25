@@ -85,12 +85,8 @@ class PoItem:
         text = re.sub(r":pep:`(.*?)`", r"PEP \1", text)
         text = re.sub(r":[a-z:]+:`(.+?)`", r"« \1 »", text)
         text = re.sub(r"\*\*(.*?)\*\*", r"« \1 »", text)
-        text = re.sub(
-            r"\*(.*?)\*", r"« \1 »", text
-        )  # TODO sauf si déjà entre «»
-        text = re.sub(
-            r"`(.*?)\s*<((?:http|https|ftp)://.*?)>`_", r"\1 (« \2 »)", text
-        )
+        text = re.sub(r"\*(.*?)\*", r"« \1 »", text)  # TODO sauf si déjà entre «»
+        text = re.sub(r"`(.*?)\s*<((?:http|https|ftp)://.*?)>`_", r"\1 (« \2 »)", text)
         text = re.sub(r"<((?:http|https|ftp)://.*?)>", r"« \1 »", text)
         return text
 
@@ -146,14 +142,14 @@ class PoFile:
         for item in self.content:
             if not item.inside_pull_request:
                 continue
-            prefix = f"{self.path}:{item.lineno_start:-4} %s"
-            log.debug(prefix, "")
             for message in item.warnings:
                 if isinstance(message, Error):
-                    log.error(prefix, message)
+                    log.error(f"{self.path}:{item.lineno_start}: error: %s", message)
                     errors.append(message)
                 elif isinstance(message, Warning):
-                    log.warning(prefix, message)
+                    log.warning(
+                        f"{self.path}:{item.lineno_start}: warning: %s", message
+                    )
                     warnings.append(message)
         return errors, warnings
 

@@ -60,7 +60,6 @@ def check_paths(paths, pull_request_info=None):
 def main():
     """Entry point."""
     global log
-    log = simplelogging.get_logger("__main__")
 
     parser = argparse.ArgumentParser(description="Linter for *.po files.")
     parser.add_argument("-v", "--verbose", action="count", default=0)
@@ -84,6 +83,7 @@ def main():
         help="path of pull request in GitHub to check",
         default="",
     )
+    files.add_argument("-c", "--color", action="store_true", help="color output")
     files.add_argument(
         "-p",
         "--python-docs-fr",
@@ -96,8 +96,14 @@ def main():
     args = parser.parse_args()
 
     if args.version:
-        print(pkg_resources.get_distribution('padpo').version)
+        print(pkg_resources.get_distribution("padpo").version)
         sys.exit(0)
+
+    if args.color:
+        console_format = "%(log_color)s[%(levelname)-8s]%(reset)s %(message)s"
+    else:
+        console_format = "%(message)s"
+    log = simplelogging.get_logger("__main__", console_format=console_format)
 
     if args.verbose < 1:
         log.reduced_logging()
