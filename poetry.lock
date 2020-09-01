@@ -59,7 +59,7 @@ description = "Log formatting with colors!"
 name = "colorlog"
 optional = false
 python-versions = "*"
-version = "4.0.2"
+version = "4.2.1"
 
 [package.dependencies]
 colorama = "*"
@@ -251,11 +251,11 @@ category = "main"
 description = "Logging made simple, no excuse for any debug print call."
 name = "simplelogging"
 optional = false
-python-versions = "*"
-version = "0.10.0"
+python-versions = ">=3.5,<4.0"
+version = "0.11.0"
 
 [package.dependencies]
-colorlog = "4.0.2"
+colorlog = ">=4.1.0,<5.0.0"
 
 [[package]]
 category = "dev"
@@ -359,7 +359,8 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "98e95bb02796cf6cb141465174f94c4264933271afe8bc86cefab7a59418a62a"
+content-hash = "3f519147ae3850612e79ffc18299f6c5768b86a0a3dc9e2f107c587758017839"
+lock-version = "1.0"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -388,8 +389,8 @@ colorama = [
     {file = "colorama-0.4.3.tar.gz", hash = "sha256:e96da0d330793e2cb9485e9ddfd918d456036c7149416295932478192f4436a1"},
 ]
 colorlog = [
-    {file = "colorlog-4.0.2-py2.py3-none-any.whl", hash = "sha256:450f52ea2a2b6ebb308f034ea9a9b15cea51e65650593dca1da3eb792e4e4981"},
-    {file = "colorlog-4.0.2.tar.gz", hash = "sha256:3cf31b25cbc8f86ec01fef582ef3b840950dea414084ed19ab922c8b493f9b42"},
+    {file = "colorlog-4.2.1-py2.py3-none-any.whl", hash = "sha256:43597fd822ce705190fc997519342fdaaf44b9b47f896ece7aa153ed4b909c74"},
+    {file = "colorlog-4.2.1.tar.gz", hash = "sha256:75e55822c3a3387d721579241e776de2cf089c9ef9528b1f09e8b04d403ad118"},
 ]
 coverage = [
     {file = "coverage-5.2.1-cp27-cp27m-macosx_10_13_intel.whl", hash = "sha256:40f70f81be4d34f8d491e55936904db5c527b0711b2a46513641a5729783c2e4"},
@@ -484,8 +485,8 @@ requests = [
     {file = "requests-2.24.0.tar.gz", hash = "sha256:b3559a131db72c33ee969480840fff4bb6dd111de7dd27c8ee1f820f4f00231b"},
 ]
 simplelogging = [
-    {file = "simplelogging-0.10.0-py2.py3-none-any.whl", hash = "sha256:574e8fdaaecdc43a4cb932710126657b1c3c566594d22f2e04de1a6b56e56d9d"},
-    {file = "simplelogging-0.10.0.tar.gz", hash = "sha256:c070e0d82b68eff6918076a0edbf0a48b2c9a263854bd35f48a12c6adbbe9d80"},
+    {file = "simplelogging-0.11.0-py3-none-any.whl", hash = "sha256:5f78ced41443e8bb8da32b0abeb7206e5ddd4f448fa1582f2b32eb5384fca69a"},
+    {file = "simplelogging-0.11.0.tar.gz", hash = "sha256:23a128b47d3e88213adc51fdd102aae15a398cf459d782eb19534945d23f0bc5"},
 ]
 six = [
     {file = "six-1.15.0-py2.py3-none-any.whl", hash = "sha256:8b74bedcbbbaca38ff6d7491d76f2b06b3592611af620f8426e82dddb04a5ced"},
