@@ -1,22 +1,19 @@
 """Checker for grammar errors."""
 
-import json
 import re
-from pathlib import Path
 from typing import Set
-from zipfile import ZipFile
 
+import requests
+import simplelogging
 from pygrammalecte import (
-    grammalecte_text,
     GrammalecteGrammarMessage,
     GrammalecteMessage,
     GrammalecteSpellingMessage,
+    grammalecte_text,
 )
-import requests
-import simplelogging
 
 from padpo.checkers.baseclass import Checker, replace_quotes
-from padpo.pofile import PoItem, PoFile
+from padpo.pofile import PoFile, PoItem
 
 log = simplelogging.get_logger()
 
@@ -29,7 +26,6 @@ class GrammalecteChecker(Checker):
     def __init__(self):
         """Initialiser."""
         super().__init__()
-        self.dir = None
         self.personal_dict: Set[str] = set()
         self.get_personal_dict()
 
@@ -57,17 +53,10 @@ class GrammalecteChecker(Checker):
             item = pofile.content[item_index]
             start = max(0, warning.start - 40)
             end = warning.end + 10
-            if isinstance(warning, GrammalecteGrammarMessage):
-                item.add_warning(
-                    self.name,
-                    f"{warning.message} => " f"###{item.msgstr_rst2txt[start:end]}###",
-                )
-            else:
-                item.add_warning(
-                    self.name,
-                    f'Unknown word "{warning.word}" in '
-                    f"###{item.msgstr_rst2txt[start:end]}###",
-                )
+            item.add_warning(
+                self.name,
+                f"{warning.message} => " f"###{item.msgstr_rst2txt[start:end]}###",
+            )
 
     def filter_out_grammar_error(self, warning: GrammalecteMessage) -> bool:
         """Return True when grammalecte error should be ignored."""
