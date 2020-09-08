@@ -96,18 +96,20 @@ marker = "python_version >= \"3.7\" and python_version < \"4.0\""
 name = "black"
 optional = false
 python-versions = ">=3.6"
-version = "19.10b0"
+version = "20.8b1"
 
 [package.dependencies]
 appdirs = "*"
-attrs = ">=18.1.0"
-click = ">=6.5"
+click = ">=7.1.2"
+mypy-extensions = ">=0.4.3"
 pathspec = ">=0.6,<1"
-regex = "*"
-toml = ">=0.9.4"
+regex = ">=2020.1.8"
+toml = ">=0.10.1"
 typed-ast = ">=1.4.0"
+typing-extensions = ">=3.7.4"
 
 [package.extras]
+colorama = ["colorama (>=0.4.3)"]
 d = ["aiohttp (>=3.3.2)", "aiohttp-cors"]
 
 [[package]]
@@ -622,6 +624,15 @@ version = "8.5.0"
 
 [[package]]
 category = "dev"
+description = "Experimental type system extensions for programs checked with the mypy typechecker."
+marker = "python_version >= \"3.7\" and python_version < \"4.0\""
+name = "mypy-extensions"
+optional = false
+python-versions = "*"
+version = "0.4.3"
+
+[[package]]
+category = "dev"
 description = "Core utilities for Python packages"
 marker = "python_version >= \"3.7\" and python_version < \"4.0\""
 name = "packaging"
@@ -799,13 +810,13 @@ marker = "python_version >= \"3.7\" and python_version < \"4.0\""
 name = "python-dev-tools"
 optional = false
 python-versions = ">=3.6.1,<4.0"
-version = "2020.9.4"
+version = "2020.9.7"
 
 [package.dependencies]
 Sphinx = ">=2.4.0,<3.0.0"
 autoflake = ">=1.3.0,<2.0.0"
 bandit = ">=1.6.0,<2.0.0"
-black = ">=19.10b0,<20.0"
+black = ">=20.8b1,<21.0"
 coverage = ">=5.0.0,<6.0.0"
 darglint = ">=1.2,<2.0"
 doc8 = ">=0.8.0,<0.9.0"
@@ -831,7 +842,7 @@ flake8-variables-names = ">=0.0.3,<0.0.4"
 isort = ">=4.3.5,<5.0.0"
 mccabe = ">=0.6.0,<0.7.0"
 pep8-naming = ">=0.9.0,<0.10.0"
-pip = ">=20.0.0,<21.0.0"
+pip = ">=20.2.0,<21.0.0"
 pycodestyle = ">=2.5.0,<3.0.0"
 pydocstyle = ">=5.0.0,<6.0.0"
 pyflakes = ">=2.1.0,<3.0.0"
@@ -1284,8 +1295,8 @@ bandit = [
     {file = "bandit-1.6.2.tar.gz", hash = "sha256:41e75315853507aa145d62a78a2a6c5e3240fe14ee7c601459d0df9418196065"},
 ]
 black = [
-    {file = "black-19.10b0-py36-none-any.whl", hash = "sha256:1b30e59be925fafc1ee4565e5e08abef6b03fe455102883820fe5ee2e4734e0b"},
-    {file = "black-19.10b0.tar.gz", hash = "sha256:c2edb73a08e9e0e6f65a0e6af18b059b8b1cdd5bef997d7a0b181df93dc81539"},
+    {file = "black-20.8b1-py3-none-any.whl", hash = "sha256:70b62ef1527c950db59062cda342ea224d772abdf6adc58b86a45421bab20a6b"},
+    {file = "black-20.8b1.tar.gz", hash = "sha256:1c02557aa099101b9d21496f8a914e9ed2222ef70336404eeeac8edba836fbea"},
 ]
 certifi = [
     {file = "certifi-2020.6.20-py2.py3-none-any.whl", hash = "sha256:8fc0819f1f30ba15bdb34cceffb9ef04d99f420f68eb75d901e9560b8749fc41"},
@@ -1515,6 +1526,10 @@ more-itertools = [
     {file = "more-itertools-8.5.0.tar.gz", hash = "sha256:6f83822ae94818eae2612063a5101a7311e68ae8002005b5e05f03fd74a86a20"},
     {file = "more_itertools-8.5.0-py3-none-any.whl", hash = "sha256:9b30f12df9393f0d28af9210ff8efe48d10c94f73e5daf886f10c4b0b0b4f03c"},
 ]
+mypy-extensions = [
+    {file = "mypy_extensions-0.4.3-py2.py3-none-any.whl", hash = "sha256:090fedd75945a69ae91ce1303b5824f428daf5a028d2f6ab8a299250a846f15d"},
+    {file = "mypy_extensions-0.4.3.tar.gz", hash = "sha256:2d82818f5bb3e369420cb3c4060a7970edba416647068eb4c5343488a6c604a8"},
+]
 packaging = [
     {file = "packaging-20.4-py2.py3-none-any.whl", hash = "sha256:998416ba6962ae7fbd6596850b80e17859a5753ba17c32284f67bfff33784181"},
     {file = "packaging-20.4.tar.gz", hash = "sha256:4357f74f47b9c12db93624a82154e9b120fa8293699949152b22065d556079f8"},
@@ -1572,8 +1587,8 @@ pytest-cov = [
     {file = "pytest_cov-2.10.1-py2.py3-none-any.whl", hash = "sha256:45ec2d5182f89a81fc3eb29e3d1ed3113b9e9a873bcddb2a71faaab066110191"},
 ]
 python-dev-tools = [
-    {file = "python_dev_tools-2020.9.4-py3-none-any.whl", hash = "sha256:5755d4910b28d825c3f22c52fdfa12312713c73d51f895313dd87808a14bc6fc"},
-    {file = "python_dev_tools-2020.9.4.tar.gz", hash = "sha256:9f2284d185ae4f66947e808e598e0359f8a592b29120b0421d085ca9f3ceaa35"},
+    {file = "python_dev_tools-2020.9.7-py3-none-any.whl", hash = "sha256:95d25eb77c50c6ffd44f7244472de375035eb8e5ca7eff4eda90331d7b51ee23"},
+    {file = "python_dev_tools-2020.9.7.tar.gz", hash = "sha256:fcffe0376433496fbc13413cd55c20170288673b4b50299d58b61a1b0888838b"},
 ]
 pytz = [
     {file = "pytz-2020.1-py2.py3-none-any.whl", hash = "sha256:a494d53b6d39c3c6e44c3bec237336e14305e4f29bbf800b599253057fbb79ed"},
