@@ -23,6 +23,12 @@ BSD 3-clause
 
 Pull request are welcome.
 
+### Padpo is part of poutils!
+
+[Poutils](https://pypi.org/project/poutils) (`.po` utils) is is a metapackage to easily install usefull Python tools to use with po files
+and `padpo` is a part of it! Go check out [Poutils](https://pypi.org/project/poutils) to discover the other useful tools for `po` file related translation!
+
+
 ## Usage
 
 Using the *activated virtual environment* created during the installation:
