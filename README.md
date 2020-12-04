@@ -94,6 +94,10 @@ pip install padpo
 
 ## Changelog
 
+### v0.10.0 (2020-12-04)
+
+* use `pygrammalecte` v1.12.0
+
 ### v0.9.0 (2020-09-07)
 
 * use `pygrammalecte` default message for spelling errors

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "padpo"
-version = "0.9.0"
+version = "0.10.0"
 description = "Linter for gettext files"
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -21,7 +21,7 @@ include = ["padpo/**/*.py"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-pygrammalecte = "^1.1.0"
+pygrammalecte = "^1.2.0"
 requests = "^2.20.0"
 simplelogging = ">=0.10,<0.12"
 
