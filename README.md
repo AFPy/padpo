@@ -97,7 +97,8 @@ pip install padpo
 
 ### v0.10.0 (2020-12-04)
 
-* use `pygrammalecte` v1.12.0
+* use `pygrammalecte` v1.3.0
+* use GitHub Actions
 
 ### v0.9.0 (2020-09-07)
 
