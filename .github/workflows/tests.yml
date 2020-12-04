@@ -1,0 +1,15 @@
+---
+
+name: Tests
+
+on: [push, pull_request]
+
+jobs:
+  tox:
+    name: 'Tests (tox/pytest)'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run tox
+        run: tox
+
