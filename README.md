@@ -15,8 +15,6 @@ Created to help the translation of official Python docs in French: https://githu
 Il faut demander aux traducteurs s'ils n'ont pas de pot quand ils traduisent, maintenant ils ont `padpo`…
 :smile: :laughing: :stuck_out_tongue_winking_eye: :joy: (note : il était tard le soir quand j'ai trouvé le nom).
 
-**WORK IN PROGRESS**
-
 ## License
 
 BSD 3-clause
