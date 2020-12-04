@@ -12,9 +12,9 @@ classifiers = [
 ]
 authors = ["Vincent Poulailleau <vpoulailleau@gmail.com>"]
 readme = "README.md"
-repository = "https://github.com/vpoulailleau/padpo"
-homepage = "https://github.com/vpoulailleau/padpo"
-documentation = "https://github.com/vpoulailleau/padpo"
+repository = "https://github.com/AFPy/padpo"
+homepage = "https://github.com/AFPy/padpo"
+documentation = "https://github.com/AFPy/padpo"
 keywords = ["gettext", "linter", "grammalecte"]
 license = "BSD-3-Clause"
 include = ["padpo/**/*.py"]
