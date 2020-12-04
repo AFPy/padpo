@@ -2,11 +2,16 @@
 
 [![PyPI](https://img.shields.io/pypi/v/padpo.svg)](https://pypi.python.org/pypi/padpo)
 [![PyPI](https://img.shields.io/pypi/l/padpo.svg)](https://github.com/vpoulailleau/padpo/blob/master/LICENSE)
+<!--
 [![Travis](https://api.travis-ci.com/vpoulailleau/padpo.svg?branch=master)](https://travis-ci.com/vpoulailleau/padpo)
+-->
 [![Code style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 [![Downloads](https://pepy.tech/badge/padpo)](https://pepy.tech/project/padpo)
+<!--
 [![Test Coverage](https://api.codeclimate.com/v1/badges/ab4759d5dc9cc7ea915e/test_coverage)](https://codeclimate.com/github/vpoulailleau/padpo/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/ab4759d5dc9cc7ea915e/maintainability)](https://codeclimate.com/github/vpoulailleau/padpo/maintainability)
+-->
+
 
 Linter for gettext files (*.po)
 
