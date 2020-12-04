@@ -27,6 +27,7 @@ jobs:
 
       - name: Run tests
         run: |
+          source $HOME/.poetry/env
           poetry run python --version
           poetry install -v
           poetry run pytest -s -vv --cov=padpo
