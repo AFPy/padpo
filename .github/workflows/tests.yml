@@ -20,7 +20,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install tox
           curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 -
+          source $HOME/.poetry/env
+
+          tox --version
+          poetry --version
 
       - name: Run tox
-        run: tox
+        run: poetry run tox
 
