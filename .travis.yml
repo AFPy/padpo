@@ -1,6 +1,6 @@
 env:
   global:
-    - CC_TEST_REPORTER_ID=24d2bc5ffa5ffc6083c070293660c1a117101d4bf773ee3fd8e49f0be7a6e031
+    - CC_TEST_REPORTER_ID=4f307949bf2b8fece540e528b27c5304ef1df0dfbfbd0e2e7e85892e4d5a9190
 language: python
 matrix:
   include:
