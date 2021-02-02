@@ -1,0 +1,5 @@
+#: ../Doc/library/typing.rst:19
+msgid ""
+"tuple"
+msgstr ""
+"*n*-uplet"

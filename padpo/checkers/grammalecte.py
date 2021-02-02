@@ -13,6 +13,7 @@ from pygrammalecte import (
 )
 
 from padpo.checkers.baseclass import Checker, replace_quotes
+from padpo.checkers.glossary import glossary
 from padpo.pofile import PoFile, PoItem
 
 log = simplelogging.get_logger()
@@ -92,6 +93,10 @@ class GrammalecteChecker(Checker):
         if warning.word.strip() in self.personal_dict:
             return True  # white list
         if warning.word.endswith("_"):
+            return True
+        if warning.word.lower() in glossary:
+            return True
+        if warning.word.lower() == "uplet":  # partially italic word in glossary
             return True
         return False
 
