@@ -147,6 +147,7 @@ glossary = {
     "traceback": ["trace d'appels", "trace de pile"],
     "tracebacks": ["traces d'appels", "traces de pile"],
     "(?<![-])tuple": ["*n*-uplet"],
+    "(?<![-])tuples": ["*n*-uplets"],
     "2-tuple": ["paire", "couple"],
     "3-tuple": ["triplet"],
     "4-tuple": ["quadruplet"],
@@ -288,10 +289,10 @@ glossary.update(
         "module specs": ["spécificateurs de module"],
         "MRO": ["MRO"],
         "mutable": ["muable"],
-        "named tuple": ["n-uplet nommé"],
-        "named tuples": ["n-uplets nommés"],
-        "tuple": ["n-uplet"],
-        "tuples": ["n-uplets"],
+        "named tuple": ["*n*-uplet nommé"],
+        "named tuples": ["*n*-uplets nommés"],
+        # "tuple": already in glossary
+        # "tuples": already in glossary
         "namespace": ["espace de nommage", "espace de noms"],
         "namespaces": ["espaces de nommage", "espaces de noms"],
         "namespace package": ["paquet-espace de nommage"],
