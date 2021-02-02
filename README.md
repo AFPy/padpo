@@ -91,6 +91,10 @@ pip install padpo
 
 ## Changelog
 
+### v0.11.0 (2021-02-02)
+
+- update glossary (fix #58)
+
 ### v0.10.0 (2020-12-04)
 
 - use `pygrammalecte` v1.3.0
