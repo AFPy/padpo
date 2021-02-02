@@ -13,6 +13,13 @@ def pytest_generate_tests(metafunc):
         metafunc.parametrize(
             "known_good_po_file", [str(file_path) for file_path in files]
         )
+    if "known_bad_po_file" in metafunc.fixturenames:
+        # assume using tox (that cd into tests directory)
+        files = list(Path("./po_with_warnings").rglob("*.po"))
+        files.extend(Path("./tests/po_with_warnings").rglob("*.po"))
+        metafunc.parametrize(
+            "known_bad_po_file", [str(file_path) for file_path in files]
+        )
 
 
 def test_no_error_no_warning(known_good_po_file):
@@ -20,3 +27,9 @@ def test_no_error_no_warning(known_good_po_file):
     errors, warnings = check_file(known_good_po_file)
     assert not errors
     assert not warnings
+
+
+def test_error_or_warning(known_bad_po_file):
+    """Test known to be bad files."""
+    errors, warnings = check_file(known_bad_po_file)
+    assert errors or warnings
