@@ -161,7 +161,7 @@ glossary = {
 }
 
 # https://github.com/python/python-docs-fr/blob/
-# ccc2e5863e8d814c3ec9463be70db6bbaf611462/glossary.po
+# 25e6bb0dc12c0c22c1053e5c0861a163a84b9c02/glossary.po
 glossary.update(
     {
         "abstract base class": ["classe de base abstraite"],
@@ -206,6 +206,10 @@ glossary.update(
         "descriptors": ["descripteurs"],
         "dictionary": ["dictionnaire"],
         "dictionaries": ["dictionnaires"],
+        "dictionary comprehension": [
+            "dictionnaire en compréhension",
+            "dictionnaire en intention",
+        ],
         "dictionary view": ["vue de dictionnaire"],
         "dictionary views": ["vues de dictionnaire"],
         "docstring": ["*docstring*", "chaîne de documentation"],
@@ -237,6 +241,8 @@ glossary.update(
         "generator expressions": ["expressions génératrices"],
         "generic function": ["fonction générique"],
         "generic functions": ["fonctions génériques"],
+        "generic type": ["type générique"],
+        "generic types": ["types génériques"],
         "GIL": ["GIL"],
         "global interpreter lock": ["verrou global de l'interpréteur"],
         "hash-based pyc": ["*pyc* utilisant le hachage"],
@@ -262,7 +268,7 @@ glossary.update(
         "lambda": ["lambda"],
         "list": ["*list*", "liste"],
         "lists": ["listes"],
-        "list comprehension": ["liste en compréhension", "liste en intension"],
+        "list comprehension": ["liste en compréhension", "liste en intention"],
         "loader": ["chargeur"],
         "loaders": ["chargeurs"],
         "magic method": ["méthode magique"],
@@ -327,6 +333,7 @@ glossary.update(
         "__slots__": ["``__slots__``"],
         "sequence": ["séquence"],
         "sequences": ["séquences"],
+        "set comprehension": ["ensemble en compréhension", "ensemble en intention"],
         "single dispatch": ["distribution simple"],
         "slice": ["tranche"],
         "slices": ["tranches"],
