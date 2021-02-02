@@ -96,6 +96,8 @@ class GrammalecteChecker(Checker):
             return True
         if warning.word.lower() in glossary:
             return True
+        if warning.word.lower() == "uplet":  # partially italic word in glossary
+            return True
         return False
 
     def get_personal_dict(self):
