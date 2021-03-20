@@ -9,7 +9,6 @@ from padpo.checkers.nbsp import NonBreakableSpaceChecker
 checkers = [
     EmptyChecker(),
     FuzzyChecker(),
-    GrammalecteChecker(),
     GlossaryChecker(),
     LineLengthChecker(),
     NonBreakableSpaceChecker(),
