@@ -1,4 +1,4 @@
 #: ../Doc/library/typing.rst:594
 msgid "An ABC with one abstract method ``__int__``."
 msgstr ""
-msgstr "Une ABC avec une méthode abstraite ``__int__``."
+"Une ABC avec une méthode abstraite ``__int__``."
