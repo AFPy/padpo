@@ -2,6 +2,7 @@
 
 import re
 from typing import List
+from polib import pofile
 
 import simplelogging
 
@@ -11,62 +12,31 @@ log = simplelogging.get_logger()
 class PoItem:
     """Translation item."""
 
-    def __init__(self, path, lineno):
+    def __init__(self, entry):
         """Initializer."""
-        self.path = path[3:]
-        self.lineno_start = lineno
-        self.lineno_end = lineno
-        self.parsing_msgid = None
-        self.msgid = []
-        self.msgstr = []
-        self.fuzzy = False
         self.warnings = []
         self.inside_pull_request = False
+        self.entry = entry
 
-    def append_line(self, line):
-        """Append a line of a `*.po` file to the item."""
-        self.lineno_end += 1
-        if line.startswith("msgid"):
-            self.parsing_msgid = True
-            self.msgid.append(line[7:-2])
-        elif line.startswith("msgstr"):
-            self.parsing_msgid = False
-            self.msgstr.append(line[8:-2])
-        elif line.startswith("#, fuzzy"):
-            self.fuzzy = True
-        elif line.startswith('"'):
-            if self.parsing_msgid:
-                self.msgid.append(line[1:-2])
-            elif not self.parsing_msgid is None:
-                self.msgstr.append(line[1:-2])
 
     def __str__(self):
         """Return string representation."""
         return (
-            f"    - {self.msgid_full_content}\n"
-            f"        => {self.msgstr_full_content}\n"
+            f"    - {self.entry.msgid}\n"
+            f"        => {self.entry.msgstr}\n"
             f"        => {self.msgstr_rst2txt}\n"
         )
 
-    @property
-    def msgid_full_content(self):
-        """Full content of the msgid."""
-        return "".join(self.msgid)
-
-    @property
-    def msgstr_full_content(self):
-        """Full content of the msgstr."""
-        return "".join(self.msgstr)
 
     @property
     def msgid_rst2txt(self):
         """Full content of the msgid (reStructuredText escaped)."""
-        return self.rst2txt(self.msgid_full_content)
+        return self.rst2txt(self.entry.msgid)
 
     @property
     def msgstr_rst2txt(self):
         """Full content of the msgstr (reStructuredText escaped)."""
-        return self.rst2txt(self.msgstr_full_content)
+        return self.rst2txt(self.entry.msgstr)
 
     @staticmethod
     def rst2txt(text):
@@ -112,17 +82,18 @@ class PoFile:
     def parse_file(self, path):
         """Parse a `*.po` file according to its path."""
         # TODO assert path is a file, not a dir
-        item = None
-        with open(path, encoding="utf8") as f:
-            for lineno, line in enumerate(f):
-                if line.startswith("#: "):
-                    if item:
-                        self.content.append(item)
-                    item = PoItem(line, lineno + 1)
-                elif item:
-                    item.append_line(line)
-        if item:
+        self.pofile = pofile(path)
+        for entry in self.pofile:
+            item = PoItem(entry)
             self.content.append(item)
+
+        # lineno_end only needed for github patch. May be removed ?
+        import sys
+        lineno_end = sys.maxsize
+        for item in sorted(self.content, key=lambda x: x.entry.linenum, reverse=True):
+            item.lineno_end = lineno_end
+            lineno_end = item.entry.linenum - 1
+
 
     def __str__(self):
         """Return string representation."""
@@ -148,7 +119,7 @@ class PoFile:
                         message.text,
                         extra={
                             "pofile": self.path,
-                            "poline": item.lineno_start,
+                            "poline": item.entry.linenum,
                             "checker": message.checker_name,
                             "leveldesc": "error",
                         },
@@ -159,7 +130,7 @@ class PoFile:
                         message.text,
                         extra={
                             "pofile": self.path,
-                            "poline": item.lineno_start,
+                            "poline": item.entry.linenum,
                             "checker": message.checker_name,
                             "leveldesc": "warning",
                         },
@@ -178,7 +149,7 @@ class PoFile:
                 item.inside_pull_request = False
             for lineno_diff in self.lines_in_diff(diff):
                 for item in self.content:
-                    if item.lineno_start <= lineno_diff <= item.lineno_end:
+                    if item.entry.linenum <= lineno_diff <= item.lineno_end:
                         item.inside_pull_request = True
 
     @staticmethod

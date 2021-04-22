@@ -10,14 +10,20 @@ class GlossaryChecker(Checker):
     """Checker for glossary usage."""
 
     name = "Glossary"
+    silent_re = re.compile('silent-glossary:`([^`]*)`')
+
+    def silent_glossary(self, item: PoItem, text: str, prefix, match, suffix):
+        for term in self.silent_re.findall(item.entry.tcomment):
+            if term in text[:text.find("that is not translated")]:
+                return True
 
     def check_item(self, item: PoItem):
         """Check an item in a `*.po` file."""
-        if not item.msgstr_full_content:
+        if not item.entry.msgstr:
             return  # no warning
         original_content = item.msgid_rst2txt.lower()
         original_content = re.sub(r"« .*? »", "", original_content)
-        translated_content = item.msgstr_full_content.lower()
+        translated_content = item.entry.msgstr.lower()
         for word, translations in glossary.items():
             if re.match(fr"\b{word.lower()}\b", original_content):
                 for translated_word in translations:
@@ -30,10 +36,9 @@ class GlossaryChecker(Checker):
                         possibilities += '" or "'
                     possibilities += translations[-1]
                     possibilities += '"'
-                    item.add_warning(
-                        self.name,
+                    self.add_warning('warning', item,
                         f'Found "{word}" that is not translated in '
-                        f"{possibilities} in ###{item.msgstr_full_content}"
+                        f"{possibilities} in ###{item.entry.msgstr}"
                         "###.",
                     )
 

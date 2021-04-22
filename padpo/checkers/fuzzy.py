@@ -11,5 +11,5 @@ class FuzzyChecker(Checker):
 
     def check_item(self, item: PoItem):
         """Check an item in a `*.po` file."""
-        if item.fuzzy:
+        if item.entry.fuzzy:
             item.add_warning(self.name, "This entry is tagged as fuzzy.")

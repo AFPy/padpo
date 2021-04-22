@@ -1,0 +1,13 @@
+# example how to silent nbsp warnings
+# first entry is ok, with a nbsp before question mark
+# second entry raises a warning because of the walrus operator analysed as a colon
+# we silent padpo warning with a silent-nbsp-after tag
+
+#: test-nsbsp.rst:25
+msgid "What a question?"
+msgstr "Quelle question ?"
+
+# silent-nbsp-after:`morse`
+#: test-nbsp.rst:39
+msgid "the walrus operator `:=` is a new feature"
+msgstr "l'opérateur morse `:=` est fantastique"

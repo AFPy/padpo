@@ -12,5 +12,5 @@ class EmptyChecker(Checker):
 
     def check_item(self, item: PoItem):
         """Check an item in a `*.po` file."""
-        if item.msgid_full_content and not item.msgstr_full_content:
+        if item.entry.msgid and not item.entry.msgstr:
             item.add_warning(self.name, "This entry is not translated yet.")
