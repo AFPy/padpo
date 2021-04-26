@@ -24,7 +24,6 @@ python = "^3.7"
 pygrammalecte = "^1.3.0"
 requests = "^2.20.0"
 simplelogging = ">=0.10,<0.12"
-polib = "^1.1.1"
 
 [tool.poetry.dev-dependencies]
 python-dev-tools = {version = ">=2020.9.4", python = ">=3.7,<4.0"}
