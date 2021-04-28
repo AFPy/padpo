@@ -10,10 +10,10 @@ class GlossaryChecker(Checker):
     """Checker for glossary usage."""
 
     name = "Glossary"
-    silent_re = re.compile('silent-glossary:`([^`]*)`')
+    re_silent = re.compile('silent-glossary:`([^`]*)`')
 
     def silent_glossary(self, item: PoItem, text: str, prefix, match, suffix):
-        for term in self.silent_re.findall(item.entry.tcomment):
+        for term in self.re_silent.findall(item.entry.tcomment):
             if term in text[:text.find("that is not translated")]:
                 return True
 
