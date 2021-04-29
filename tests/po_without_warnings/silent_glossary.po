@@ -1,0 +1,14 @@
+# example how to silent glossary warning
+# first entry: 'statement' is correctly translated by a word found in the glossary
+#              --> nothing to do
+# second entry: 'tuple' is translated by a word not corresponding in the glossary, but that we know correct
+#               --> we silent padpo
+
+#: glossary.rst:25
+msgid "statement"
+msgstr "instruction"
+
+# silent-glossary:`tuple`
+#: glossary.rst:39
+msgid "tuple"
+msgstr "couple"

@@ -23,6 +23,16 @@ class GrammalecteChecker(Checker):
     """Checker for grammar errors."""
 
     name = "Grammalecte"
+    capital_silent_re = re.compile('silent-capital:`([^`]*)`')
+    unknown_word_silent_re = re.compile('silent-unknown:`([^`]*)`')
+
+    def silent_capital(self, item: PoItem, text: str, prefix: str, match: str, suffix:str):
+        return (text.startswith("Majuscule en début de phrase") and
+                self.match_silent(self.capital_silent_re, item, match))
+
+    def silent_unknown_word(self, item: PoItem, text: str, prefix: str, match: str, suffix: str):
+        return (text.startswith("Mot inconnu") and
+                self.match_silent(self.unknown_word_silent_re, item, match))
 
     def __init__(self):
         """Initialiser."""
@@ -54,9 +64,11 @@ class GrammalecteChecker(Checker):
             item = pofile.content[item_index]
             start = max(0, warning.start - 40)
             end = warning.end + 10
-            item.add_warning(
-                self.name,
+            self.add_warning("warning", item,
                 f"{warning.message} => " f"###{item.msgstr_rst2txt[start:end]}###",
+                             item.msgstr_rst2txt[start:warning.start],
+                             item.msgstr_rst2txt[warning.start:warning.end],
+                             item.msgstr_rst2txt[warning.end:end]
             )
 
     def filter_out_grammar_error(self, warning: GrammalecteMessage) -> bool:

@@ -1,0 +1,50 @@
+# example how to silent Grammalecte warnings
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: padpo\n"
+"Language-Team: FRENCH <traductions@lists.afpy.org>\n"
+"Language: fr\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+# silent-capital:`alors`
+#: tutorial/classes.rst:276
+msgid ""
+"then ``MyClass.i`` and ``MyClass.f`` are valid attribute references, "
+"returning an integer and a function object, respectively. Class attributes "
+"can also be assigned to, so you can change the value of ``MyClass.i`` by "
+"assignment. :attr:`__doc__` is also a valid attribute, returning the "
+"docstring belonging to the class: ``\"A simple example class\"``."
+msgstr ""
+"alors ``MyClass.i`` et ``MyClass.f`` sont des références valides à des "
+"attributs, renvoyant respectivement un entier et un objet fonction. Les "
+"attributs de classes peuvent également être affectés, de sorte que vous "
+"pouvez modifier la valeur de ``MyClass.i`` par affectation. :attr:`__doc__` "
+"est aussi un attribut valide, renvoyant la *docstring* appartenant à la "
+"classe : ``\"A simple example class\"``."
+
+# silent-unknown:`SciPy`
+#: tutorial/floatingpoint.rst:160
+msgid ""
+"If you are a heavy user of floating point operations you should take a look "
+"at the Numerical Python package and many other packages for mathematical and "
+"statistical operations supplied by the SciPy project. See <https://scipy."
+"org>."
+msgstr ""
+"Si vous êtes un utilisateur intensif des opérations sur les nombres à "
+"virgule flottante, nous vous conseillons de considérer le paquet *Numerical "
+"Python* ainsi que les paquets pour les opérations statistiques et "
+"mathématiques fournis par le projet SciPy. Consultez <https://scipy.org>."
+
+# silent-unknown:`The Perils of Floating Point`
+#: tutorial/floatingpoint.rst:134
+msgid ""
+"See `The Perils of Floating Point <http://"
+"www.lahey.com/float.htm>`_ for a more complete account of other common "
+"surprises."
+msgstr ""
+"Voir `The Perils of "
+"Floating Point <http://www.lahey.com/float.htm>`_ pour une liste plus "
+"complète de ce genre de surprises."
