@@ -93,6 +93,10 @@ def main():
     )
     files.add_argument("--version", action="store_true", help="Return version")
     parser.add_argument("-c", "--color", action="store_true", help="color output")
+
+    for checker in checkers:
+        checker.add_arguments(parser)
+
     args = parser.parse_args()
 
     if args.version:
@@ -127,6 +131,9 @@ def main():
     else:
         path = args.input_path
         pull_request_info = None
+
+    for checker in checkers:
+        checker.configure(args)
 
     errors, warnings = check_paths(path, pull_request_info=pull_request_info)
     if errors:

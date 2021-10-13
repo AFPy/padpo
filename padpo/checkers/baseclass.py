@@ -26,6 +26,12 @@ class Checker(ABC):
         """Check an item in a `*.po` file."""
         return NotImplementedError
 
+    def add_arguments(self, parser):
+        """Let any checker register argparse arguments."""
+
+    def configure(self, args):
+        """Store the result of parse_args, to get back arguments from self.add_arguments."""
+
 
 def replace_quotes(match):
     """Replace match with « xxxxxxx »."""
