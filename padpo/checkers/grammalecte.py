@@ -1,7 +1,8 @@
 """Checker for grammar errors."""
 
 import re
-from typing import Set
+from pathlib import Path
+from typing import Set, Optional
 
 import requests
 import simplelogging
@@ -28,7 +29,6 @@ class GrammalecteChecker(Checker):
         """Initialiser."""
         super().__init__()
         self.personal_dict: Set[str] = set()
-        self.get_personal_dict()
 
     def check_file(self, pofile: PoFile):
         """Check a `*.po` file."""
@@ -100,18 +100,28 @@ class GrammalecteChecker(Checker):
             return True
         return False
 
-    def get_personal_dict(self):
-        """
-        Add spelling white list.
-
-        Based on
-        https://raw.githubusercontent.com/python/python-docs-fr/3.9/dict
-        """
-        download_request = requests.get(
-            "https://raw.githubusercontent.com/python/python-docs-fr/3.9/dict"
-        )
-        download_request.raise_for_status()
-        for line in download_request.text.splitlines():
+    def _get_personal_dict(self, dict_path: str) -> None:
+        if "://" in dict_path:
+            download_request = requests.get(dict_path)
+            download_request.raise_for_status()
+            lines = download_request.text
+        else:
+            lines = Path(dict_path).read_text(encoding="UTF-8")
+        for line in lines.splitlines():
             word = line.strip()
             self.personal_dict.add(word)
             self.personal_dict.add(word.title())
+
+    def add_arguments(self, parser):
+        parser.add_argument(
+            "--dict",
+            nargs="*",
+            dest="dicts",
+            help="Personal dict files or URLs. Should contain onw word per line.",
+        )
+
+    def configure(self, args):
+        """Store the result of parse_args, to get back arguments from self.add_arguments."""
+        if args.dicts:
+            for dict_path in args.dicts:
+                self._get_personal_dict(dict_path)
