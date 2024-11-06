@@ -40,7 +40,7 @@ rm -fr htmlcov/
 rm -fr .pytest_cache
 
 # tests
-tox
+uv run tox
 echo -n "Is it OK? (y/n) [y]: "
 read BOOL
 if [ "$BOOL" == "n" ]
