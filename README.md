@@ -2,7 +2,7 @@
 
 [![PyPI](https://img.shields.io/pypi/v/padpo.svg)](https://pypi.python.org/pypi/padpo)
 [![PyPI](https://img.shields.io/pypi/l/padpo.svg)](https://github.com/vpoulailleau/padpo/blob/master/LICENSE)
-[![Code style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+[![Code style: Ruff](https://img.shields.io/badge/code%20style-ruff-000000.svg)](https://github.com/astral-sh/ruff)
 [![Downloads](https://pepy.tech/badge/padpo)](https://pepy.tech/project/padpo)
 [![Tests](https://github.com/AFPy/padpo/workflows/Tests/badge.svg)](https://github.com/AFPy/padpo/actions?query=workflow%3ATests)
 [![Maintainability](https://api.codeclimate.com/v1/badges/bbd3044291527d667778/maintainability)](https://codeclimate.com/github/AFPy/padpo/maintainability)
@@ -69,27 +69,17 @@ or `--color` option to get a colored output.
 pip install padpo
 ```
 
-### Manual installation
-
-1. Install dependencies
-
-   ```bash
-   poetry install
-   ```
-
-   Note: this uses `poetry` that you can get here: https://poetry.eustace.io/docs/
-
-2. Use virtual environment$
-
-   ```bash
-   poetry shell
-   ```
-
 ## Update on PyPI
 
 `./deliver.sh`
 
 ## Changelog
+
+### v0.12.0 (2024-11-06)
+
+- use `uv`
+- use `pygrammalecte` v1.4.0
+- compatible with Python 3.9 to 3.13
 
 ### v0.11.0 (2021-02-02)
 
