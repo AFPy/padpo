@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source venv/bin/activate
-
 # configuration management
 git rebase
 git status
@@ -61,10 +59,14 @@ until git push --tags
 do
   echo "Try again"
 done
+until git push --tags upstream
+do
+  echo "Try again"
+done
 
 # package creation
-poetry build
-until poetry publish
+uv build
+until uv publish
 do
   echo "Try again"
 done
