@@ -211,6 +211,10 @@ class Message:
         """Return string representation."""
         return f"[{self.checker_name:^14}] {self.text}"
 
+    def __repr__(self):
+        """Return string representation."""
+        return f'Message(checker_name="{self.checker_name}",  text="{self.text}")'
+
 
 class Warning(Message):
     """Checker warning message."""
