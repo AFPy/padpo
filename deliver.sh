@@ -55,6 +55,10 @@ until git push
 do
   echo "Try again"
 done
+until git push upstream
+do
+  echo "Try again"
+done
 until git push --tags
 do
   echo "Try again"
