@@ -72,10 +72,10 @@ class GrammalecteChecker(Checker):
         if "typo_guillemets_typographiques_simples" in warning.rule:
             return True  # ignore ' quotes
         if warning.message in (
-            "Accord de genre erroné : « ABC » est masculin.",
-            "Accord de genre erroné : « PEP » est masculin.",
-            "Accord de nombre erroné : « PEP » devrait être au pluriel.",
-            "Accord de genre erroné : « une entrée » est féminin, « utilisateur » est masculin.",
+            "Accord de genre erroné : « ABC » est masculin.",
+            "Accord de genre erroné : « PEP » est masculin.",
+            "Accord de nombre erroné : « PEP » devrait être au pluriel.",
+            "Accord de genre erroné : « une entrée » est féminin, « utilisateur » est masculin.",
         ):
             return True
         if "S’il s’agit d’un impératif" in warning.message:
@@ -92,7 +92,7 @@ class GrammalecteChecker(Checker):
             return True  # word is xxxxx or xxxxxxxx…
         if warning.word.strip() in self.personal_dict:
             return True  # white list
-        if warning.word.endswith("_"):
+        if warning.word.endswith("aAaA"):  # internal links
             return True
         if warning.word.lower() in glossary:
             return True
