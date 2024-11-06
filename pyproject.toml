@@ -43,15 +43,17 @@ isolated_build = True
 envlist = py39, py310, py311, py312, py313
 
 [testenv]
+deps =
+    pytest>=8
+    pytest-cov >= 6
 allowlist_externals =
-    uv
     echo
     sed
     cp
 changedir = {toxinidir}/tests
 commands =
-    uv run python -m pytest -s -vv --cov=padpo
-    uv run coverage xml
+    python -m pytest -s -vv --cov=padpo
+    coverage xml
     echo 'fix travis bug'
     sed --in-place -e 's@//home@/home@' coverage.xml
     echo 'fix codeclimate bug, use relative path'
@@ -61,7 +63,6 @@ commands =
 
 [tool.uv]
 dev-dependencies = ["ruff>=0.7.2", "pytest>=8", "pytest-cov >= 6", "tox >= 4"]
-
 
 [build-system]
 requires = ["hatchling"]
