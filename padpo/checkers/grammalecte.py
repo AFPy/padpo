@@ -75,7 +75,7 @@ class GrammalecteChecker(Checker):
             "Accord de genre erroné : « ABC » est masculin.",
             "Accord de genre erroné : « PEP » est masculin.",
             "Accord de nombre erroné : « PEP » devrait être au pluriel.",
-            "Accord de genre erroné : « une entrée » est féminin, « utilisateur » est masculin.",
+            "Accord de genre erroné : le syntagme « une entrée » est féminin, « utilisateur » est masculin.",
         ):
             return True
         if "S’il s’agit d’un impératif" in warning.message:
