@@ -1,7 +1,7 @@
 """Entry point of padpo."""
 
 import argparse
-import pkg_resources
+import importlib
 import sys
 from pathlib import Path
 
@@ -100,7 +100,7 @@ def main():
     args = parser.parse_args()
 
     if args.version:
-        print(pkg_resources.get_distribution("padpo").version)
+        print(importlib.metadata.version("padpo"))
         sys.exit(0)
 
     if args.color:
